@@ -1,0 +1,64 @@
+@import '../NormalizeCSS/normalize.css';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+/* Variables de fondo claro */
+:root{
+    --color_background_detail: #fff;
+    --color_shadow_detail: #ddd;
+    --color_text_detail: #111827;
+    --color_transition_link: #029e77;
+}
+
+/* ----------------------------------------Estructura principal-------------------------------------- */
+.contact-detail-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    padding: 12px;
+    background-color: var(--color_background_detail);
+    border-bottom: 1px solid var(--color_shadow_detail);
+    text-decoration: none;
+    z-index: 10;
+}
+
+.back-home-icon {
+    color: var(--color_text_detail);
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.contact-detail-header-link {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    gap: 12px;
+}
+
+.contact-detail-header-image {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.contact-detail-header-name {
+    font-size: 16px;
+    color: var(--color_text_detail);
+    transition: color 0.2s ease;
+}
+
+/* ---------- Funcional solo con mouse ---------- */
+@media (hover: hover) {
+    .contact-detail-header-link:hover .contact-detail-header-name {
+        color: var(--color_transition_link);
+    }
+    .back-home-icon:hover {
+        color: var(--color_transition_link);
+    }
+}

@@ -1,0 +1,19 @@
+@import '../NormalizeCSS/normalize.css';
+
+:root {
+    --color_texto_buscador: #666;
+}
+
+.contacts-list {
+    display: flex;
+    flex-direction: column;
+    padding: 5px 12px;
+}
+
+.no-chats-message {
+    padding: 20px;
+    font-size: 16px;
+    color: var(--color_texto_buscador);
+    text-align: center;
+    opacity: 0.8;
+}

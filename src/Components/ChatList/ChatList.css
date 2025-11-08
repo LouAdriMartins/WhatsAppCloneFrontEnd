@@ -1,0 +1,21 @@
+@import '../NormalizeCSS/normalize.css';
+
+:root {
+    --color_backgroung_messages: #F5F1EB;
+    --color_no_msj: #6b7280;
+}
+
+.principal-chat-screen {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: var(--color_backgroung_messages);
+}
+
+.chat-total {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow-y: auto;
+}

@@ -1,0 +1,150 @@
+@import "../NormalizeCSS/normalize.css";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+/* Variables de color claro */
+:root {
+    --color-fondo-textarea: #fff;
+    --color-borde-textarea: #e9edef;
+    --color-btn-send: #00a884;
+    --color_btn_hover: #029e77;
+    --color-icon_send: #6b7280;
+    --color-placeholder-input: #8696a0;
+    --color-shadow-textarea: #0000003f;
+    --color-hover-bg: #f0f0f0;
+}
+
+/* ----------------------------- Estructura principal ----------------------------- */
+.whatsapp-input-container {
+    position: relative;
+    background-color: var(--color-fondo-textarea);
+    padding: 10px 16px;
+    border-top: 1px solid var(--color-borde-textarea);
+}
+
+.whatsapp-input-bar {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.input-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    background: var(--color-fondo-textarea);
+    border-radius: 24px;
+    padding: 8px 12px;
+    box-shadow: 0 1px 2px var(--color-shadow-textarea);
+    border: 1px solid var(--color-borde-textarea);
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.input-wrapper:hover {
+    background-color: var(--color-hover-bg);
+    border-color: var(--color-btn-send);
+}
+
+/* ----------------------------- Botón de emoji ----------------------------- */
+.emoji-button,
+.attach-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+.emoji-button:hover,
+.attach-button:hover {
+    background-color: var(--color-hover-bg);
+}
+
+/* ----------------------------- Textarea ----------------------------- */
+.message-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    resize: none;
+    font-size: 15px;
+    line-height: 20px;
+    max-height: 100px;
+    min-height: 20px;
+    padding: 6px 0;
+    background: transparent;
+    overflow-y: hidden;
+}
+
+/* ----------------------------- Botón enviar ----------------------------- */
+.send-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-btn-send);
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    color: var(--color-fondo-textarea);
+    font-size: 18px;
+}
+
+.send-button:hover {
+    background-color: var(--color_btn_hover);
+}
+
+/* ----------------------------- Picker de emoji ----------------------------- */
+.emoji-picker-overlay {
+    position: absolute;
+    bottom: 70px;
+    left: 16px;
+    right: 16px;
+    z-index: 1000;
+    background: var(--color-fondo-textarea);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px var(--color-shadow-textarea);
+    border: 1px solid var(--color-borde-textarea);
+    overflow: hidden;
+}
+
+/* ----------------------------- Responsive ----------------------------- */
+@media (max-width: 768px) {
+    .whatsapp-input-container {
+        padding: 8px 12px;
+    }
+    .emoji-picker-overlay {
+        left: 12px;
+        right: 12px;
+        bottom: 60px;
+    }
+    .send-button {
+        width: 44px;
+        height: 44px;
+    }
+}
+
+@media (max-width: 480px) {
+    .whatsapp-input-container {
+        padding: 6px 8px;
+    }
+    .emoji-picker-overlay {
+        left: 8px;
+        right: 8px;
+        bottom: 55px;
+    }
+    .input-wrapper {
+        padding: 6px 10px;
+    }
+    .send-button {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+}

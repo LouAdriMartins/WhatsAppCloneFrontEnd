@@ -1,0 +1,97 @@
+@import '../NormalizeCSS/normalize.css';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+/* Variables de color */
+:root {
+  --color-bg-search: #fff;
+  --color-border-default: #ddd;
+  --color-border-active: #22c55e;
+  --color-icon: #6b7280;
+}
+
+/* ----------------------------------- Estructura principal ----------------------------------- */
+.search-container {
+  padding: 8px 12px;
+}
+
+.search-input-wrapper {
+  display: flex;
+  align-items: center;
+  background-color: var(--color-bg-search);
+  border-radius: 20px;
+  padding: 6px 12px;
+  border: 1px solid var(--color-border-default);
+  transition: border-color 0.2s;
+}
+
+.search-input-wrapper:focus-within {
+  border-color: var(--color-border-active);
+}
+
+.search-icon {
+  color: var(--color-icon);
+  flex-shrink: 0;
+  font-size: 18px;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 6px 8px;
+  font-size: 14px;
+  background: transparent;
+}
+
+.clear-button {
+  background: none;
+  border: none;
+  color: var(--color-icon);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  font-size: 18px;
+  transition: color 0.2s;
+}
+
+.clear-button:hover {
+  color: var(--color-border-active);
+}
+
+/* ----------------------------------- Responsive ----------------------------------- */
+@media (max-width: 768px) {
+  .search-container {
+    padding: 6px 8px;
+  }
+  .search-input-wrapper {
+    padding: 4px 10px;
+  }
+  .search-icon {
+    font-size: 16px;
+  }
+  .search-input {
+    padding: 4px 6px;
+    font-size: 13px;
+  }
+  .clear-button {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-container {
+    padding: 4px 6px;
+  }
+  .search-input-wrapper {
+    padding: 3px 8px;
+  }
+  .search-input {
+    font-size: 12px;
+  }
+  .search-icon,
+  .clear-button {
+    font-size: 14px;
+  }
+}

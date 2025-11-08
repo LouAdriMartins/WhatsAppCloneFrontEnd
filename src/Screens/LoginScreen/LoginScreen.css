@@ -1,0 +1,187 @@
+/* WhatsApp Login Screen Styles - Light Green Design
+
+.main-layout {
+  display: flex;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #d9f0e8 0%, #d9f0e8 100%);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica", "Arial", sans-serif;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.main-layout > aside,
+.main-layout > .sidebar {
+  display: none !important;
+}
+
+.main-layout-principal {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.top-bar {
+  background-color: transparent;
+  padding: 0;
+  box-shadow: none;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.top-bar-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-size: 28px;
+  font-weight: 600;
+  color: #3b4a54;
+  margin: 0;
+  text-align: center;
+  position: relative;
+  padding-top: 100px;
+}
+
+.top-bar-title::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 80px;
+  background-color: #00a884;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0, 168, 132, 0.3);
+  z-index: 0;
+}
+
+.top-bar-icon {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 40px;
+  color: #ffffff;
+  z-index: 1;
+}
+
+.top-bar-title::after {
+  content: "Ingresa tus credenciales para continuar";
+  font-size: 15px;
+  font-weight: 400;
+  color: #667781;
+  margin-top: 4px;
+}
+
+.content-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.main-layout::after {
+  content: "© 2025 WhatsApp Clone. Todos los derechos reservados.";
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 13px;
+  color: #667781;
+  text-align: center;
+}
+
+/////////////////////////////////////////////////////////responsive
+@media (max-width: 768px) {
+  .main-layout {
+    padding: 16px;
+  }
+
+  .top-bar::before {
+    width: 70px;
+    height: 70px;
+  }
+
+  .top-bar-icon {
+    top: 15px;
+    font-size: 35px;
+  }
+
+  .top-bar-title {
+    font-size: 24px;
+  }
+
+  .top-bar-title::after {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-layout {
+    padding: 12px;
+  }
+
+  .top-bar {
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+
+  .top-bar::before {
+    width: 60px;
+    height: 60px;
+  }
+
+  .top-bar-icon {
+    top: 12px;
+    font-size: 30px;
+  }
+
+  .top-bar-title {
+    font-size: 20px;
+  }
+
+  .top-bar-title::after {
+    font-size: 13px;
+    padding: 0 12px;
+  }
+
+  .main-layout::after {
+    font-size: 12px;
+    bottom: 12px;
+    padding: 0 12px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .main-layout {
+    background: linear-gradient(to bottom, #d9f0e8 0%, #d9f0e8 100%);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.content-container > * {
+  animation: fadeInUp 0.4s ease-out;
+}
+*/

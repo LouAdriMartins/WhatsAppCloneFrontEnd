@@ -1,0 +1,43 @@
+@import '../NormalizeCSS/normalize.css';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+:root {
+    --color_no_msj: #6b7280;
+}
+
+/* ------------------------------------------ Estructura principal ------------------------------------------ */
+.chat-container {
+    flex: 1;                      
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+    padding: 12px 42px;
+    color: var(--color_no_msj);
+}
+
+.empty-chat {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 42px;
+    color: var(--color_no_msj);
+    min-height: 0;
+}
+
+/* ------------------------------------------ Responsive ------------------------------------------ */
+@media (max-width: 768px) {
+    .chat-container, .empty-chat {
+        padding: 10px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .chat-container, .empty-chat {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+}

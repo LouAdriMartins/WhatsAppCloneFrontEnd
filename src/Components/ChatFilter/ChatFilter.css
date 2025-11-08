@@ -1,0 +1,39 @@
+@import '../NormalizeCSS/normalize.css';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+/* Variables de color */
+:root{
+  --color_btn_white_filter: #fff;
+  --color_btn_fondo_filter: #f3f4f6;
+  --color_btn_filter: #6b7280;
+  --colo_btn_hover_filter: #22c55e;
+  --color_btn_active_filter: #22c55e;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 10px;
+  padding: 10px 12px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  background-color: var(--color_btn_fondo_filter);
+  border: none;
+  border-radius: 20px;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--color_btn_filter);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.filter-btn:hover {
+  background-color: var(--colo_btn_hover_filter);
+  color: var(--color_btn_white_filter);
+}
+
+.filter-btn.active {
+  background-color: var(--color_btn_active_filter);
+  color: var(--color_btn_white_filter);
+}

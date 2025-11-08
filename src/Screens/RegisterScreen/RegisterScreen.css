@@ -1,0 +1,154 @@
+/* RegisterScreen.css - WhatsApp Light Green Style
+
+.register-screen {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: linear-gradient(to bottom, #d9f0e8 0%, #c8e6d9 100%);
+  font-family: "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+.register-screen::before {
+  content: "👤";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  background-color: #00a884;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0, 168, 132, 0.3);
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+  position: relative;
+}
+
+.register-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #3b4a54;
+  margin-bottom: 0.25rem;
+  text-align: center;
+  letter-spacing: -0.5px;
+}
+
+.register-title::after {
+  content: "Crea tu cuenta para comenzar";
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: #667781;
+  margin-top: 6px;
+  margin-bottom: 0.75rem;
+}
+
+.register-screen > :not(.register-title):not(.register-footer) {
+  width: 100%;
+  max-width: 448px;
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  margin-bottom: 0.75rem;
+}
+
+.register-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  max-width: 448px;
+  width: 100%;
+}
+
+.register-footer span {
+  font-size: 0.875rem;
+  color: #667781;
+}
+
+.register-footer a {
+  text-decoration: none;
+  width: 100%;
+}
+
+.register-footer button {
+  width: 100%;
+  padding: 0.625rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #00a884;
+  background-color: transparent;
+  border: 2px solid #00a884;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.register-footer button:hover {
+  background-color: rgba(0, 168, 132, 0.1);
+  transform: translateY(-1px);
+}
+
+.register-footer button:active {
+  transform: translateY(0);
+}
+
+//////////////////////////////////////////////////////////responsive
+@media (max-width: 640px) {
+  .register-screen {
+    padding: 1.5rem 1rem;
+  }
+
+  .register-screen::before {
+    width: 70px;
+    height: 70px;
+    font-size: 2rem;
+  }
+
+  .register-title {
+    font-size: 1.75rem;
+  }
+
+  .register-screen > :not(.register-title):not(.register-footer) {
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+  }
+
+  .register-footer {
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .register-screen::before {
+    width: 60px;
+    height: 60px;
+    font-size: 1.75rem;
+  }
+
+  .register-title {
+    font-size: 1.5rem;
+  }
+
+  .register-screen > :not(.register-title):not(.register-footer) {
+    box-shadow: none;
+    border-radius: 0;
+  }
+
+  .register-footer {
+    box-shadow: none;
+    border-radius: 0;
+  }
+}
+*/
