@@ -40,15 +40,16 @@ export async function login(email, password) {
     )
     const response_data = await response.json()
     if (!response.ok) {
-    // Si la respuesta no es exitosa, lanza error
         throw new Error(response_data.message || "Error al iniciar sesión")
     }
-    if (response_data.ok && response_data.data?.authorization_token) {
-        // Guarda el token en localStorage solo si existe
-        localStorage.setItem('token', response_data.data.authorization_token)
+    const token = response_data?.data?.authorization_token
+    const user = response_data?.data?.user
+    if (!token || !user) {
+        throw new Error("Respuesta inválida del servidor")
     }
-    return response_data
+    return { token, user }
 }
+
 
 export async function recoverPassword(email) {
     const response = await fetch(

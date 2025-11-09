@@ -8,9 +8,9 @@ export default function NewChatOptions({ onAddContact }) {
             <Link to="/new-group" className="newchat-option-row">
                 👥 Nuevo grupo
             </Link>
-            <div className="newchat-option-row" onClick={onAddContact}>
+            <Link to="/new-contact" className="newchat-option-row">
                 👤 Nuevo contacto
-            </div>
+            </Link>
             <div className="newchat-option-row disabled">
                 <span>📣</span> Nuevo canal
             </div>

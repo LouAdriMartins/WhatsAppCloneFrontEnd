@@ -19,8 +19,6 @@ export default function NewChatScreen() {
             <NewChatHeader />
             <NewChatOptions onAddContact={() => setShowModal(true)} />
             <NewChatContacts contacts={contacts} />
-            {/* Mostrar modal si está ON */}
-            {showModal && <AddContactModal onClose={() => setShowModal(false)} />}
         </div>
     )
 }

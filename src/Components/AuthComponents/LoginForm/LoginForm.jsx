@@ -1,11 +1,13 @@
 import React, { useEffect } from "react"
+import { useContext } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import useFetch from "../../../Hooks/useFetch.js"
 import useForm from "../../../Hooks/useForm.js"
 import { login } from "../../../services/authService.js"
 import LOCALSTORAGE_KEYS from "../../../constants/localstorage.js"
 import { FaEnvelope, FaLock, FaArrowRight } from "react-icons/fa"
-import "./LoginForm.css"
+import { AuthContext } from "../../../Context/AuthContext.jsx"
+//import "./LoginForm.css"
 
 const FORM_FIELDS = {
     EMAIL: "email",
@@ -29,56 +31,56 @@ const LoginForm = () => {
         )
     })
 
+    const auth = useContext(AuthContext)
+
     useEffect(() => {
-        if (response?.ok) {
-            localStorage.setItem(
-                LOCALSTORAGE_KEYS.AUTH_TOKEN,
-                response.data.token
-            )
+        if (response?.token && response?.user) {
+            auth.login(response.user, response.token)
             navigate("/home")
         }
     }, [response, navigate])
 
+
     return (
         <div className="login-form-container">
             <form onSubmit={handleSubmit} className="login-form">
-                <div className="form-group">
-                    <FaEnvelope className="form-icon" />
-                <input
-                    name={FORM_FIELDS.EMAIL}
-                    id={FORM_FIELDS.EMAIL}
-                    type="email"
-                    placeholder="Correo electrónico"
-                    onChange={handleInputChange}
-                    value={form_state[FORM_FIELDS.EMAIL]}
-                    required
-                />
+                <div className="login-form__group">
+                    <FaEnvelope className="login-form__icon" />
+                    <input
+                        name={FORM_FIELDS.EMAIL}
+                        id={FORM_FIELDS.EMAIL}
+                        type="email"
+                        placeholder="Correo electrónico"
+                        onChange={handleInputChange}
+                        value={form_state[FORM_FIELDS.EMAIL]}
+                        required
+                    />
                 </div>
 
-                <div className="form-group">
-                    <FaLock className="form-icon" />
-                <input
-                    name={FORM_FIELDS.PASSWORD}
-                    id={FORM_FIELDS.PASSWORD}
-                    type="password"
-                    placeholder="Contraseña"
-                    onChange={handleInputChange}
-                    value={form_state[FORM_FIELDS.PASSWORD]}
-                    required
-                />
+                <div className="login-form__group">
+                    <FaLock className="login-form__icon" />
+                    <input
+                        name={FORM_FIELDS.PASSWORD}
+                        id={FORM_FIELDS.PASSWORD}
+                        type="password"
+                        placeholder="Contraseña"
+                        onChange={handleInputChange}
+                        value={form_state[FORM_FIELDS.PASSWORD]}
+                        required
+                    />
                 </div>
 
-                <button type="submit" className="login-button" disabled={loading}>
-                {loading ? "Iniciando..." : <>Ingresar <FaArrowRight /></>}
+                <button type="submit" className="login-form__button" disabled={loading}>
+                    {loading ? "Iniciando..." : <>Ingresar <FaArrowRight /></>}
                 </button>
 
-                {error && <span className="error-text">{error.message}</span>}
+                {error && <span className="login-form__error-text">{error.message}</span>}
 
-                <div className="login-links">
-                    <Link to="/recover-password" className="login-link">
+                <div className="login-form__links">
+                    <Link to="/recover-password" className="login-form__link">
                         ¿Olvidaste tu contraseña?
                     </Link>
-                    <Link to="/register" className="login-link">
+                    <Link to="/register" className="login-form__link">
                         Crear cuenta nueva
                     </Link>
                 </div>

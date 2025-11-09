@@ -10,6 +10,8 @@ import RecoverPasswordScreen from "./Screens/RecoverPasswordScreen/RecoverPasswo
 import ResetPasswordScreen from "./Screens/ResetPasswordScreen/ResetPasswordScreen.jsx"
 import NewChatScreen from "./Screens/NewChatScreen/NewChatScreen.jsx"
 import NewGroupScreen from "./Screens/NewGroupScreen/NewGroupScreen.jsx"
+import NewContactScreen from "./Screens/NewContactScreen/NewContactScreen.jsx"
+import ProfileScreen from "./Screens/ProfileScreen/ProfileScreen.jsx"
 
 import AuthMiddleware from "./Middlewares/AuthMiddleware.jsx"
 import MessageContextProvider from "./Context/MessageContext.jsx"
@@ -41,8 +43,10 @@ function App() {
             }
           >
             <Route path="/home" element={<HomeScreen />} />
+            <Route path="/profile" element={<ProfileScreen />} />
             <Route path="/new-chat" element={<NewChatScreen />} />
             <Route path="/new-group" element={<NewGroupScreen />} />
+            <Route path="/new-contact" element={<NewContactScreen />} />
             <Route path="/contact/:contact_id/messages" element={<MessagesScreen />} />
             <Route path="/contact/:contact_id/detail" element={<ContactDetailScreen />} />
           </Route>

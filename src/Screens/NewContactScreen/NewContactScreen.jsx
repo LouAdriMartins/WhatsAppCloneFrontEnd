@@ -1,19 +1,12 @@
 import React from "react"
-import { IoArrowBack } from "react-icons/io5"
-import { useNavigate } from "react-router-dom"
-import NewContactForm from "../../Components/NewContact/NewContactForm"
-//import "./NewContactScreen.css"
+import NewContactForm from "../../Components/NewContactForm/NewContactForm"
 
 export default function NewContactScreen() {
-    const navigate = useNavigate()
-
     return (
-        <div className="newcontact-container">
-            <div className="newcontact-header">
-                <IoArrowBack className="newcontact-back" onClick={() => navigate(-1)} />
-                <h2>Nuevo contacto</h2>
-            </div>
+        <div className="new-contact-screen">
+            <h2>Nuevo Contacto</h2>
             <NewContactForm />
         </div>
     )
 }
+

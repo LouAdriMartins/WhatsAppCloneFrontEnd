@@ -63,9 +63,6 @@ POST — Crear contacto
 ------------------------------------------------------ */
 export async function createContact(contactData) {
     const token = getToken()
-    if (!token) {
-        throw new Error("Falta el token")
-    }
     const url = `${ENVIRONMENT.URL_API}/api/contacts`
     const response = await fetch(url, {
         method: HTTP_METHODS.POST,
@@ -76,7 +73,9 @@ export async function createContact(contactData) {
         body: JSON.stringify(contactData)
     })
     const data = await response.json()
-    if (!response.ok) throw new Error(data.message)
+    if (!response.ok) {
+        throw new Error(data.message)
+    }
     return data.data
 }
 
