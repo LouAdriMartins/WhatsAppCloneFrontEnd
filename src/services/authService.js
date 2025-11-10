@@ -1,4 +1,5 @@
 import { CONTENT_TYPE_VALUES, HEADERS, HTTP_METHODS } from "../constants/http"
+import LOCALSTORAGE_KEYS from "../constants/localstorage.js"
 import ENVIRONMENT from "../config/environment.js"
 
 
@@ -42,14 +43,13 @@ export async function login(email, password) {
     if (!response.ok) {
         throw new Error(response_data.message || "Error al iniciar sesión")
     }
-    const token = response_data?.data?.authorization_token
-    const user = response_data?.data?.user
-    if (!token || !user) {
-        throw new Error("Respuesta inválida del servidor")
+    const token = response_data?.data?.token
+    if (!token) {
+        throw new Error("Token ausente en la respuesta del servidor")
     }
-    return { token, user }
+    localStorage.setItem(LOCALSTORAGE_KEYS.AUTH_TOKEN, token)
+    return response_data
 }
-
 
 export async function recoverPassword(email) {
     const response = await fetch(

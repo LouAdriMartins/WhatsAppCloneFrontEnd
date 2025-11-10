@@ -1,38 +1,44 @@
-import React from "react"
 import { createContext, useEffect, useState } from "react"
+import LOCALSTORAGE_KEYS from "../constants/localstorage.js"
+import { getMyProfile } from "../services/userService.js"
 
 export const AuthContext = createContext()
 
 export function AuthContextProvider({ children }) {
+    const [token, setToken] = useState(null)
     const [user, setUser] = useState(null)
-    const [isAuthenticated, setIsAuthenticated] = useState(false)
 
     useEffect(() => {
-        const localUser = localStorage.getItem("user")
-        const token = localStorage.getItem("token")
-
-        if (localUser && token) {
-            setUser(JSON.parse(localUser))
-            setIsAuthenticated(true)
+        const token = localStorage.getItem(LOCALSTORAGE_KEYS.AUTH_TOKEN)
+        if (token) {
+            setToken(token)
+            loadUser()
         }
     }, [])
 
-    function login(user, token) {
-        localStorage.setItem("user", JSON.stringify(user))
-        localStorage.setItem("token", token)
-        setUser(user)
-        setIsAuthenticated(true)
+    async function loadUser() {
+        try {
+            const user_data = await getMyProfile()
+            setUser(user_data)
+        } catch (err) {
+            console.log("Error cargando usuario:", err)
+        }
+    }
+
+    function updateUser(updatedUser) {
+        setUser(updatedUser)
     }
 
     function logout() {
-        localStorage.removeItem("user")
-        localStorage.removeItem("token")
+        localStorage.removeItem(LOCALSTORAGE_KEYS.AUTH_TOKEN)
+        setToken(null)
         setUser(null)
-        setIsAuthenticated(false)
     }
 
     return (
-        <AuthContext.Provider value={{ user, isAuthenticated, login, logout }}>
+        <AuthContext.Provider
+            value={{ token, user, loadUser, updateUser, logout }}
+        >
             {children}
         </AuthContext.Provider>
     )

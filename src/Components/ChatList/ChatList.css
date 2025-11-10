@@ -1,7 +1,7 @@
 @import '../NormalizeCSS/normalize.css';
 
 :root {
-    --color_backgroung_messages: #F5F1EB;
+    --color_backgroung_messages: #F7F5F3;
     --color_no_msj: #6b7280;
 }
 

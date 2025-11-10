@@ -1,0 +1,100 @@
+.picture-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+/* Foto */
+.picture-wrapper {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    cursor: pointer;
+}
+
+.profile-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Hover */
+.picture-hover {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: 0.25s;
+}
+
+.picture-wrapper:hover .picture-hover {
+    opacity: 1;
+}
+
+/* MENU */
+.picture-menu {
+    margin-top: 12px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    padding: 8px 0;
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+}
+
+.picture-menu button {
+    background: none;
+    border: none;
+    padding: 12px;
+    cursor: pointer;
+    text-align: left;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.picture-menu button:hover {
+    background: #f0f0f0;
+}
+
+.picture-menu .danger {
+    color: #d13838;
+}
+
+/* LOADING */
+.picture-loading {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.spinner {
+    width: 32px;
+    height: 32px;
+    border: 4px solid #fff;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin .8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}

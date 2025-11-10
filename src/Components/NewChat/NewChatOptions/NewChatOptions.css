@@ -1,0 +1,73 @@
+@import '../../NormalizeCSS/normalize.css';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+/* =======================================
+    VARIABLES LOCALES
+======================================= */
+:root {
+    --newchat-border: #d1d7db;        /* gris borde */
+    --newchat-text: #111b21;         /* texto fuerte */
+    --newchat-muted: #667781;        /* texto suave */
+    --newchat-hover: #F7F5F3;        /* hover suave */
+    --newchat-icon-bg: #00a884;      /* verde WhatsApp */
+    --newchat-bg: #ffffff;           /* fondo */
+}
+
+/* =======================================
+    CONTENEDOR
+======================================= */
+
+.newchat-options {
+    background: var(--newchat-bg);
+    border-bottom: 1px solid var(--newchat-border);
+    padding: 8px 0;
+    font-family: "Inter", sans-serif;
+}
+
+.newchat-option-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 20px;
+    color: var(--newchat-text);
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+    border-radius: 12px;
+}
+
+.newchat-option-row:hover {
+    background: var(--newchat-hover);
+}
+
+
+.newchat-option-row .bi {
+    width: 40px;
+    height: 40px;
+
+    background: var(--newchat-icon-bg);
+    border-radius: 50%;
+    padding: 5px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: var(--newchat-bg);
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
+.newchat-option-row span {
+    font-weight: 500;
+}
+
+.newchat-option-row.disabled {
+    opacity: 0.45;
+    cursor: default;
+}
+
+.newchat-option-row.disabled:hover {
+    background: inherit;
+}

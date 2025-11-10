@@ -1,8 +1,8 @@
-import React from "react"
-import { useContext } from "react"
+import React, { useContext } from "react"
 import { FaCommentDots, FaRegCircle, FaUsers, FaBullhorn, FaCog } from "react-icons/fa"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import { AuthContext } from "../../Context/AuthContext"
+import default_image from "../../../readme-images/default-image.png"
 import "./Sidebar.css"
 
 export default function Sidebar() {
@@ -11,16 +11,15 @@ export default function Sidebar() {
 
     return (
         <div className="sidebar">
-            <div
-                className="profile-section"
-                onClick={() => navigate("/profile")}
-            >
+            
+            {/* CONTENEDOR DEL AVATAR */}
+            <Link to="/profile" className="sidebar-avatar-container">
                 <img
-                    src={user?.profile_image_url || "/placeholder.svg"}
+                    src={user?.profile_image_url || default_image}
                     className="sidebar-avatar"
-                    alt="avatar"
+                    alt="Foto perfil"
                 />
-            </div>
+            </Link>
 
             <div className="sidebar-menu">
                 <button className="sidebar-btn"><FaCommentDots className="sidebar-icon" /> <span>Chats</span></button>

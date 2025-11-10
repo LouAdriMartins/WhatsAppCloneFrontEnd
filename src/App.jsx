@@ -17,41 +17,44 @@ import AuthMiddleware from "./Middlewares/AuthMiddleware.jsx"
 import MessageContextProvider from "./Context/MessageContext.jsx"
 import HomeContactContextProvider from "./Context/HomeContactContext.jsx"
 import ContactDetailContextProvider from "./Context/ContactDetailContext.jsx"
+import { AuthContextProvider } from "./Context/AuthContext.jsx"
 
 function App() {
   return (
     <div>
-      <Routes>
-        {/* Public */}
-        <Route path="/" element={<LoginScreen />} />
-        <Route path="/login" element={<LoginScreen />} />
-        <Route path="/register" element={<RegisterScreen />} />
-        <Route path="/recover-password" element={<RecoverPasswordScreen />} />
-        <Route path="/reset-password/:token" element={<ResetPasswordScreen />} />
+      <AuthContextProvider>
+        <Routes>
+          {/* Publico */}
+          <Route path="/" element={<LoginScreen />} />
+          <Route path="/login" element={<LoginScreen />} />
+          <Route path="/register" element={<RegisterScreen />} />
+          <Route path="/recover-password" element={<RecoverPasswordScreen />} />
+          <Route path="/reset-password/:token" element={<ResetPasswordScreen />} />
 
-        {/* Private */}
-        <Route element={<AuthMiddleware />}>
-          <Route
-            element={
-              <HomeContactContextProvider>
-                <MessageContextProvider>
-                  <ContactDetailContextProvider>
-                    <Outlet />
-                  </ContactDetailContextProvider>
-                </MessageContextProvider>
-              </HomeContactContextProvider>
-            }
-          >
-            <Route path="/home" element={<HomeScreen />} />
-            <Route path="/profile" element={<ProfileScreen />} />
-            <Route path="/new-chat" element={<NewChatScreen />} />
-            <Route path="/new-group" element={<NewGroupScreen />} />
-            <Route path="/new-contact" element={<NewContactScreen />} />
-            <Route path="/contact/:contact_id/messages" element={<MessagesScreen />} />
-            <Route path="/contact/:contact_id/detail" element={<ContactDetailScreen />} />
+          {/* Privado */}
+          <Route element={<AuthMiddleware />}>
+            <Route
+              element={
+                <HomeContactContextProvider>
+                  <MessageContextProvider>
+                    <ContactDetailContextProvider>
+                      <Outlet />
+                    </ContactDetailContextProvider>
+                  </MessageContextProvider>
+                </HomeContactContextProvider>
+              }
+            >
+              <Route path="/home" element={<HomeScreen />} />
+              <Route path="/profile" element={<ProfileScreen />} />
+              <Route path="/new-chat" element={<NewChatScreen />} />
+              <Route path="/new-group" element={<NewGroupScreen />} />
+              <Route path="/new-contact" element={<NewContactScreen />} />
+              <Route path="/contact/:contact_id/messages" element={<MessagesScreen />} />
+              <Route path="/contact/:contact_id/detail" element={<ContactDetailScreen />} />
+            </Route>
           </Route>
-        </Route>
-      </Routes>
+        </Routes>
+      </AuthContextProvider>
     </div>
   )
 }

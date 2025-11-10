@@ -1,0 +1,52 @@
+.photo-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.photo-modal {
+    background: #111b21;
+    color: #e9edef;
+    border-radius: 8px;
+    width: 350px;
+    padding: 20px;
+}
+
+.photo-modal-title {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.photo-preview {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+.photo-modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.btn-photo {
+    flex: 1;
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.btn-photo-primary {
+    background: #00a884;
+    color: #fff;
+}
+
+.btn-photo-secondary {
+    background: #202c33;
+    color: #e9edef;
+}

@@ -1,0 +1,35 @@
+@import '../../Components/NormalizeCSS/normalize.css';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+/* =======================
+    VARIABLES LOCALES
+======================= */
+:root {
+    --newchat-bg: #ffffff;
+    --newchat-bg-container: #f0f2f5;
+    --newchat-border: #d1d7db;
+
+    --newchat-text: #111b21;
+    --newchat-muted: #667781;
+}
+
+/* =======================
+    MAIN LAYOUT
+======================= */
+
+.layout_newchat-screen {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--newchat-bg);
+    overflow: hidden;
+}
+
+.layout_newchat-screen__container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--newchat-bg);
+    overflow-y: auto;
+    padding: 20px;
+}

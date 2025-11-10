@@ -1,5 +1,6 @@
 import React from "react"
-import ContactItem from "../ContactItem/ContactItem"
+import ContactItem from "../../ContactItem/ContactItem"
+import "./NewChatContacts.css"
 
 export default function NewChatContacts({ contacts }) {
   // Contactos en orden alfabético
@@ -9,6 +10,9 @@ export default function NewChatContacts({ contacts }) {
 
     return (
         <div className="newchat-contacts">
+            <span className="newchat-contacts_span">
+                Contactos en WhastApp Clone
+            </span>
             {sorted.map(contact => (
                 <ContactItem
                     key={contact._id || contact.id}

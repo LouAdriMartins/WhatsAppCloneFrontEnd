@@ -1,0 +1,13 @@
+.profile-container {
+    background: #f6f7f8;
+    min-height: 100vh;
+    padding-top: 20px;
+    text-align: center;
+}
+
+.profile-back-btn {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    color: #444;
+}

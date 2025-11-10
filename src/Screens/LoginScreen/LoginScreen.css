@@ -1,173 +1,129 @@
-/* WhatsApp Login Screen Styles - Light Green Design
+@import '../../Components/NormalizeCSS/normalize.css';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
-.main-layout {
+/* =======================================================
+  VARIABLES LOCALES
+   ======================================================= */
+:root {
+  --color-background: #d9f0e8;
+  --color-primary: #00a884;
+  --color-primary-dark: #008069;
+  --color-text-muted: #667781;
+  --color-login-screen-title: #3b4a54;
+  --color-login-title-icon: #ffffff;
+
+  --shadow-screen-title: 0 4px 12px rgba(0, 168, 132, 0.3);
+
+  --font-size-small: 13px;
+  --radius: 8px;
+}
+
+/* =======================================================
+  CONENEDOR PRINCIPAL
+   ======================================================= */
+
+.login-screen {
   display: flex;
   min-height: 100vh;
-  background: linear-gradient(to bottom, #d9f0e8 0%, #d9f0e8 100%);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica", "Arial", sans-serif;
+  background: var(--color-background);
+
   align-items: center;
   justify-content: center;
   padding: 20px;
+
+  overflow: hidden;
 }
 
-.main-layout > aside,
-.main-layout > .sidebar {
-  display: none !important;
-}
-
-.main-layout-principal {
+.login-screen__box {
   flex: 1;
+  max-width: 600px;
+  width: 100%;
+
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  max-width: 600px;
-  width: 100%;
   margin: 0 auto;
 }
 
-.top-bar {
-  background-color: transparent;
-  padding: 0;
-  box-shadow: none;
+.login-screen__header {
   position: relative;
   display: flex;
   flex-direction: column;
+
   align-items: center;
   gap: 24px;
+
   margin-bottom: 32px;
 }
 
-.top-bar-title {
+.login-screen__title {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
+
   gap: 8px;
   font-size: 28px;
   font-weight: 600;
-  color: #3b4a54;
-  margin: 0;
+  color: var(--color-login-screen-title);
+
   text-align: center;
-  position: relative;
+  margin: 0;
+
   padding-top: 100px;
 }
 
-.top-bar-title::before {
+.login-screen__title::before {
   content: "";
   position: absolute;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
+
   width: 80px;
   height: 80px;
-  background-color: #00a884;
+  background-color: var(--color-primary);
   border-radius: 50%;
-  box-shadow: 0 4px 12px rgba(0, 168, 132, 0.3);
+  box-shadow: var(--shadow-screen-title);
+
   z-index: 0;
 }
 
-.top-bar-icon {
+.login-screen__title-icon {
   position: absolute;
   top: 20px;
   left: 50%;
   transform: translateX(-50%);
+
   font-size: 40px;
-  color: #ffffff;
+  color: var(--color-login-title-icon);
   z-index: 1;
 }
 
-.top-bar-title::after {
+.login-screen__title::after {
   content: "Ingresa tus credenciales para continuar";
   font-size: 15px;
   font-weight: 400;
-  color: #667781;
+  color: var(--color-text-muted);
   margin-top: 4px;
 }
 
-.content-container {
+.login-screen__content {
   width: 100%;
   display: flex;
-  align-items: center;
   justify-content: center;
-  padding: 0;
+  animation: fadeInUp 0.4s ease-out;
 }
 
-.main-layout::after {
+.login-screen::after {
   content: "© 2025 WhatsApp Clone. Todos los derechos reservados.";
   position: fixed;
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 13px;
-  color: #667781;
+  font-size: var(--font-size-small);
+  color: var(--color-text-muted);
   text-align: center;
-}
-
-/////////////////////////////////////////////////////////responsive
-@media (max-width: 768px) {
-  .main-layout {
-    padding: 16px;
-  }
-
-  .top-bar::before {
-    width: 70px;
-    height: 70px;
-  }
-
-  .top-bar-icon {
-    top: 15px;
-    font-size: 35px;
-  }
-
-  .top-bar-title {
-    font-size: 24px;
-  }
-
-  .top-bar-title::after {
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 480px) {
-  .main-layout {
-    padding: 12px;
-  }
-
-  .top-bar {
-    gap: 20px;
-    margin-bottom: 24px;
-  }
-
-  .top-bar::before {
-    width: 60px;
-    height: 60px;
-  }
-
-  .top-bar-icon {
-    top: 12px;
-    font-size: 30px;
-  }
-
-  .top-bar-title {
-    font-size: 20px;
-  }
-
-  .top-bar-title::after {
-    font-size: 13px;
-    padding: 0 12px;
-  }
-
-  .main-layout::after {
-    font-size: 12px;
-    bottom: 12px;
-    padding: 0 12px;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .main-layout {
-    background: linear-gradient(to bottom, #d9f0e8 0%, #d9f0e8 100%);
-  }
 }
 
 @keyframes fadeInUp {
@@ -181,7 +137,66 @@
   }
 }
 
-.content-container > * {
-  animation: fadeInUp 0.4s ease-out;
+/* =======================================================
+  RESPONSIVE
+   ======================================================= */
+
+@media (max-width: 768px) {
+  .login-screen {
+    padding: 16px;
+  }
+
+  .login-screen__title::before {
+    width: 70px;
+    height: 70px;
+  }
+
+  .login-screen__title-icon {
+    top: 15px;
+    font-size: 35px;
+  }
+
+  .login-screen__title {
+    font-size: 24px;
+  }
+
+  .login-screen__title::after {
+    font-size: 14px;
+  }
 }
-*/
+
+@media (max-width: 480px) {
+  .login-screen {
+    padding: 12px;
+  }
+
+  .login-screen__header {
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+
+  .login-screen__title::before {
+    width: 60px;
+    height: 60px;
+  }
+
+  .login-screen__title-icon {
+    top: 12px;
+    font-size: 30px;
+  }
+
+  .login-screen__title {
+    font-size: 20px;
+  }
+
+  .login-screen__title::after {
+    font-size: 13px;
+    padding: 0 12px;
+  }
+
+  .login-screen::after {
+    font-size: 12px;
+    bottom: 12px;
+    padding: 0 12px;
+  }
+}

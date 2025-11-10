@@ -8,7 +8,7 @@ export default function TopBar() {
 
     return (
         <div className="top-bar">
-            <h1 className="top-bar-title">WhatsApp</h1>
+            <h1 className="top-bar-title">WhatsApp Clone</h1>
             <div className="top-bar-icons">
                 <FaEdit className="top-bar-icon" title="Nuevo chat" onClick={goToNewChat}/>
                 <FaEllipsisV className="top-bar-icon" title="Menú" />

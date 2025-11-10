@@ -1,0 +1,62 @@
+.profile-card {
+    width: 85%;
+    max-width: 600px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 0 auto;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.profile-item {
+    margin-bottom: 25px;
+}
+
+.label {
+    font-size: 15px;
+    color: #075e54;
+    margin-bottom: 4px;
+    display: block;
+    font-weight: 600;
+}
+
+.row,
+.edit-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.value {
+    font-size: 17px;
+    flex: 1;
+    color: #111;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #777;
+    display: flex;
+    font-size: 20px;
+}
+
+.icon-btn:hover {
+    color: #333;
+}
+
+.confirm {
+    color: #0a7b34;
+}
+
+.cancel {
+    color: #dd3b3b;
+}
+
+.edit-input {
+    flex: 1;
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}

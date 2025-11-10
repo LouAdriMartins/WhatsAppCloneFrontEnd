@@ -1,20 +1,18 @@
-import React from "react"
-import { useContext } from "react"
-import { AuthContext } from "../../Context/AuthContext"
+import { Link } from "react-router-dom"
+import UpdatePicture from "../../Components/Profile/UpdatePicture/UpdatePicture"
+import ProfileForm from "../../Components/Profile/ProfileForm/ProfileForm"
+import { BsArrowLeft } from "react-icons/bs"
+import "./ProfileScreen.css"
 
 export default function ProfileScreen() {
-    const { user } = useContext(AuthContext)
-
-    if (!user) return <h2>No hay usuario</h2>
-
     return (
-        <div className="profile-screen">
-            <img
-                src={user.profile_image_url || "/placeholder.svg"}
-                className="big-avatar"
-            />
-            <h3>{user.name}</h3>
-            <p>{user.email}</p>
+        <div className="profile-container">
+            <Link to="/home" className="profile-back-btn">
+                <BsArrowLeft size={22} />
+            </Link>
+
+            <UpdatePicture />
+            <ProfileForm />
         </div>
     )
 }
