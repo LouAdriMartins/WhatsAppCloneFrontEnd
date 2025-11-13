@@ -97,3 +97,67 @@
 }
 
 @keyframes newcontactMsg { from {opacity:0} to {opacity:1} }
+
+/* --------------- Resposive ------------------ */
+/* === 769px – 1024px === */
+@media (max-width: 1024px) {
+    .newcontact__container {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+}
+
+/* === 481px – 768px === */
+@media (max-width: 768px) {
+    .newcontact__container {
+        max-width: 480px;
+        margin: 0 auto;
+    }
+    .newcontact__header h2 {
+        font-size: 20px;
+    }
+    .newcontact__form input,
+    .newcontact__form button {
+        font-size: 15px;
+    }
+}
+
+/* === 480px === */
+@media (max-width: 480px) {
+    .newcontact__container {
+        gap: 12px;
+    }
+    .newcontact__header {
+        margin-bottom: 4px;
+    }
+    .newcontact__header h2 {
+        font-size: 19px;
+    }
+    .newcontact__form {
+        gap: 12px;
+    }
+    .newcontact__form input {
+        padding: 11px 13px;
+        font-size: 15px;
+    }
+    .newcontact__form button {
+        width: 100%;
+        padding: 12px;
+        font-size: 15px;
+    }
+}
+
+/* === 360px === */
+@media (max-width: 360px) {
+    .newcontact__container {
+        padding: 0 8px;
+    }
+    .newcontact__header h2 {
+        font-size: 18px;
+    }
+    .newcontact__form input,
+    .newcontact__form button {
+        font-size: 14px;
+        padding: 10px 12px;
+    }
+}
