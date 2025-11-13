@@ -9,7 +9,6 @@ import RegisterScreen from "./Screens/RegisterScreen/RegisterScreen.jsx"
 import RecoverPasswordScreen from "./Screens/RecoverPasswordScreen/RecoverPasswordScreen.jsx"
 import ResetPasswordScreen from "./Screens/ResetPasswordScreen/ResetPasswordScreen.jsx"
 import NewChatScreen from "./Screens/NewChatScreen/NewChatScreen.jsx"
-import NewGroupScreen from "./Screens/NewGroupScreen/NewGroupScreen.jsx"
 import NewContactScreen from "./Screens/NewContactScreen/NewContactScreen.jsx"
 import ProfileScreen from "./Screens/ProfileScreen/ProfileScreen.jsx"
 
@@ -47,7 +46,6 @@ function App() {
               <Route path="/home" element={<HomeScreen />} />
               <Route path="/profile" element={<ProfileScreen />} />
               <Route path="/new-chat" element={<NewChatScreen />} />
-              <Route path="/new-group" element={<NewGroupScreen />} />
               <Route path="/new-contact" element={<NewContactScreen />} />
               <Route path="/contact/:contact_user_id/messages" element={<MessagesScreen />} />
               <Route path="/contact/:contact_user_id/detail" element={<ContactDetailScreen />} />

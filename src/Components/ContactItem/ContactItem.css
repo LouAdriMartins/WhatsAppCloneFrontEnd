@@ -148,6 +148,11 @@
     flex: 1;
 }
 
+.contact-message .deleted-preview {
+    color: #6b6b6b;
+    font-style: italic;
+}
+
 .unread-badge {
     background-color: var(--color_check_unread_icon);
     color: var(--color_fondo);

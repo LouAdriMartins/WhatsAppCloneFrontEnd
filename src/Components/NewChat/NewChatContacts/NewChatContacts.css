@@ -10,3 +10,14 @@
     padding: 30px 0 15px 26px;
     font-weight: 700;
 }
+
+.no-results-contacts {
+    text-align: center;
+    padding: 20px 0;
+    font-size: 15px;
+    color: #667781;
+    font-weight: 500;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}

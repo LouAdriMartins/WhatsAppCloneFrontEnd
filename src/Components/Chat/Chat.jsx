@@ -8,15 +8,14 @@ export default function Chat() {
     const scrollRef = useRef(null)
     const [isNearBottom, setIsNearBottom] = useState(true)
 
-    // Detecta si el usuario está scrolleando
     const handleScroll = () => {
         if (!scrollRef.current) return
         const { scrollTop, scrollHeight, clientHeight } = scrollRef.current
         const distanceFromBottom = scrollHeight - (scrollTop + clientHeight)
-        setIsNearBottom(distanceFromBottom < 100) // si está a menos de 100px del fondo
+        setIsNearBottom(distanceFromBottom < 100)
     }
 
-    // Auto-scroll solo si estás al fondo
+    // Auto-scroll
     useEffect(() => {
         if (isNearBottom && scrollRef.current) {
             scrollRef.current.scrollTo({
@@ -26,7 +25,6 @@ export default function Chat() {
         }
     }, [messages])
 
-    // Carga inicial: bajar al fondo
     useEffect(() => {
         if (scrollRef.current) {
             scrollRef.current.scrollTop = scrollRef.current.scrollHeight
@@ -34,11 +32,7 @@ export default function Chat() {
     }, [])
 
     if (!messages || messages.length === 0) {
-        return (
-            <div className="empty-chat">
-                No hay mensajes en la bandeja de entrada!
-            </div>
-        )
+        return <div className="empty-chat">No hay mensajes en la bandeja de entrada!</div>
     }
 
     return (
@@ -47,16 +41,34 @@ export default function Chat() {
             ref={scrollRef}
             onScroll={handleScroll}
         >
-            {messages.map((message) => (
-                <Message
-                    key={message._id}
-                    id={message._id}
-                    emisor={message.sender}
-                    hora={message.createdAt}
-                    text={message.content}
-                    status={message.status}
-                />
-            ))}
+            <div className="messages-wrapper">
+                {messages.map((message, index) => {
+                    const currentDate = new Date(message.createdAt).toLocaleDateString()
+                    const prevDate =
+                        index > 0
+                            ? new Date(messages[index - 1].createdAt).toLocaleDateString()
+                            : null
+
+                    const showDate = currentDate !== prevDate
+
+                    return (
+                        <React.Fragment key={message._id}>
+                            {showDate && (
+                                <div className="date-badge">{currentDate}</div>
+                            )}
+
+                            <Message
+                                id={message._id}
+                                emisor={message.sender}
+                                hora={message.createdAt}
+                                text={message.content}
+                                status={message.status}
+                                deleted={message.deleted}
+                            />
+                        </React.Fragment>
+                    )
+                })}
+            </div>
         </div>
     )
 }

@@ -55,9 +55,9 @@ export async function sendMessage({ contactId, peerUserId, content }) {
 
 
 // === DELETE mensaje ===
-export async function deleteMessageAPI(id) {
+export async function deleteMessageAPI(messageId) {
     const token = getToken()
-    const res = await fetch(`${ENVIRONMENT.URL_API}/api/messages/${id}`, {
+    const res = await fetch(`${ENVIRONMENT.URL_API}/api/messages/${messageId}`, {
         method: HTTP_METHODS.DELETE,
         headers: {
             [HEADERS.AUTHORIZATION]: `Bearer ${token}`,
@@ -66,6 +66,43 @@ export async function deleteMessageAPI(id) {
     if (!res.ok) {
         const data = await res.json()
         throw new Error(data?.message || "Error borrando mensaje")
+    }
+    return res.json()
+}
+
+// === Marcar mensaje como DELIVERED ===
+export async function markDeliveredAPI(messageId) {
+    const token = getToken()
+    const res = await fetch(
+        `${ENVIRONMENT.URL_API}/api/messages/${messageId}/delivered`,
+        {
+            method: HTTP_METHODS.PATCH,
+            headers: {
+                [HEADERS.AUTHORIZATION]: `Bearer ${token}`
+            }
+        }
+    )
+    if (!res.ok) {
+        throw new Error("Error marcando mensaje como delivered")
+    }
+    return res.json()
+}
+
+// === Marcar mensaje como READ ===
+export async function markReadAPI(messageId) {
+    const token = getToken()
+    const res = await fetch(
+        `${ENVIRONMENT.URL_API}/api/messages/${messageId}/read`,
+        {
+            method: HTTP_METHODS.PATCH,
+            headers: {
+                [HEADERS.AUTHORIZATION]: `Bearer ${token}`,
+            }
+        }
+    )
+    if (!res.ok) {
+        const error = await res.json().catch(() => ({}))
+        throw new Error(error?.message || "Error marcando mensaje como read")
     }
     return res.json()
 }

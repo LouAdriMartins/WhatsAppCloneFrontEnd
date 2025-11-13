@@ -4,14 +4,13 @@ import { IoCheckmark, IoCheckmarkDone } from "react-icons/io5"
 import { AiOutlineDelete } from "react-icons/ai"
 import "./Message.css"
 
-export default function Message({ emisor, hora, id, text, status }) {
+export default function Message({ emisor, hora, id, text, status, deleted }) {
     const { deleteMessage } = useContext(MessageContext)
 
     const isMine = emisor === "YO"
     const messageClass = isMine ? "my-message" : "their-message"
     const tailClass = isMine ? "tail-right" : "tail-left"
 
-    // Formatear la hora local (sin segundos)
     let localHora = ""
     try {
         const fecha = new Date(hora)
@@ -20,50 +19,56 @@ export default function Message({ emisor, hora, id, text, status }) {
                 hour: "2-digit",
                 minute: "2-digit",
             })
-        } else {
-            localHora = ""
         }
-    } catch {
-        localHora = ""
-    }
+    } catch { localHora = "" }
 
-    // Elegir ícono según estado del mensaje
-    const getStatusIcon = () => {
-        if (!isMine) return null
+    function renderStatusIcon() {
+        if (!isMine || deleted) return null
         switch (status) {
             case "read":
-                return <IoCheckmarkDone className="check-read" size={16} title="Leído" />
+                return <IoCheckmarkDone className="check-read" size={16} />
             case "delivered":
-                return <IoCheckmarkDone className="check-delivered" size={16} title="Entregado" />
+                return <IoCheckmarkDone className="check-delivered" size={16} />
             case "sent":
             default:
-                return <IoCheckmark className="check-sent" size={16} title="Enviado" />
+                return <IoCheckmark className="check-sent" size={16} />
+        }
+    }
+
+    const handleDeleteClick = () => {
+        if (!deleted) {
+            deleteMessage(id, "soft")
+        } else {
+            deleteMessage(id, "hard")
         }
     }
 
     return (
-        <div className={`chat-dialog ${messageClass}`}>
-            <div className="message-bubble">
-                <span className="message-text">{text}</span>
-
-                <div className="message-meta">
-                    <span className="hora">{localHora}</span>
-
-                    {getStatusIcon()}
-
-                    {isMine && (
-                        <button
-                        onClick={() => deleteMessage(id)}
-                        className="delete-btn"
-                        aria-label="Eliminar mensaje"
-                        >
-                        <AiOutlineDelete size={16} />
-                        </button>
+        <div className={`chat-dialog chat-dialog--${messageClass}`}>
+            <div className="message-content">
+                <span className="message-text">
+                    
+                    {deleted ? (
+                        <i className="deleted-text">Mensaje eliminado</i>
+                    ) : (
+                        text
                     )}
-                </div>
+
+                    <span className="message-meta-inline">
+                        <span className="hora">{localHora}</span>
+                        <span className="status-icon">{renderStatusIcon()}</span>
+
+                        <button
+                            onClick={handleDeleteClick}
+                            className="delete-btn"
+                        >
+                            <AiOutlineDelete size={16} />
+                        </button>
+                    </span>
+                </span>
             </div>
 
-            <div className={`message-tail ${tailClass}`}></div>
+            <div className={`message-tail ${tailClass}`} />
         </div>
     )
 }

@@ -5,10 +5,10 @@ import { MdPersonAddAlt1 } from "react-icons/md";
 import { MdGroupAdd } from "react-icons/md"
 import "./NewChatOptions.css"
 
-export default function NewChatOptions({ onAddContact }) {
+export default function NewChatOptions() {
     return (
         <div className="newchat-options">
-            <Link to="/new-group" className="newchat-option-row">
+            <Link to="/new-group" className="newchat-option-row disabled">
                 <MdGroupAdd className="bi" />
                 <span>Nuevo grupo</span>
             </Link>

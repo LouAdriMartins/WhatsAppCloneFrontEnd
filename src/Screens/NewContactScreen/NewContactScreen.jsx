@@ -16,7 +16,7 @@ export default function NewContactScreen() {
         <div className="new-contact-screen">
             {open && (
                 <UIModal onClose={handleClose}>
-                <NewContactForm onClose={handleClose} />
+                    <NewContactForm onClose={handleClose} />
                 </UIModal>
             )}
         </div>

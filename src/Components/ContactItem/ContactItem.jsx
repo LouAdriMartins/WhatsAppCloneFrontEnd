@@ -21,7 +21,6 @@ function formatHour(dateString) {
 // ==============================
 function renderStatus(status) {
     if (!status) return null
-
     switch (status) {
         case "sent":
             return (
@@ -29,7 +28,6 @@ function renderStatus(status) {
                     <IoCheckmark className="check-icon sent" />
                 </span>
             )
-
         case "delivered":
             return (
                 <span className="message-status">
@@ -37,7 +35,6 @@ function renderStatus(status) {
                     <IoCheckmarkDoneSharp className="check-icon delivered second" />
                 </span>
             )
-
         case "read":
             return (
                 <span className="message-status">
@@ -45,7 +42,6 @@ function renderStatus(status) {
                     <IoCheckmarkDoneSharp className="check-icon read second" />
                 </span>
             )
-
         default:
             return null
     }
@@ -61,17 +57,20 @@ export default function ContactItem({
     contact_user_id
 }) {
     const avatar = image_route ?? DEFAULT_AVATAR
-    const lastText = last_message?.text || "Sin mensajes aún"
-    const lastTime = last_message?.createdAt
-        ? formatHour(last_message.createdAt)
-        : ""
+    
+    let lastText = "Sin mensajes aún"
+    let lastTime = ""
+    let lastStatus = null
 
-    console.log("ContactItem DATA", {
-        id,
-        name,
-        last_message,
-        contact_user_id
-    })
+    if (last_message) {
+        if (last_message?.deletedAt) {
+            lastText = "Mensaje eliminado"
+        } else {
+            lastText = last_message.text
+            lastTime = formatHour(last_message.createdAt)
+            lastStatus = last_message.status
+        }
+    }
 
     return (
         <div
@@ -118,10 +117,14 @@ export default function ContactItem({
                             <div className="message-content">
 
                                 {/* Estado del mensaje (sent / delivered / read) */}
-                                {renderStatus(last_message?.status)}
-                                
-                                {/* Texto truncado estilo WhatsApp */}
-                                <p className="message-text">
+                                {renderStatus(lastStatus)}
+
+                                {/* Texto del último mensaje */}
+                                <p
+                                    className={`message-text ${
+                                        last_message?.deleted ? "deleted-preview" : ""
+                                    }`}
+                                >
                                     {lastText.length > 40
                                         ? lastText.slice(0, 40) + "…"
                                         : lastText}

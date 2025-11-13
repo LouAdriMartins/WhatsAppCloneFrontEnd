@@ -33,9 +33,10 @@ const HomeContactContextProvider = ({ children }) => {
                 setFilteredContacts([])
                 return
             }
-            setContacts(data)
-            // Default → full list
-            setFilteredContacts(data)
+            // No mostrar chats vacíos
+            const withMessages = data.filter(c => c.last_message !== null)
+            setContacts(withMessages)
+            setFilteredContacts(withMessages)
         } catch (err) {
             console.error("Error al cargar contactos/chats:", err)
             setContacts([])
@@ -56,23 +57,21 @@ const HomeContactContextProvider = ({ children }) => {
     // Filtrar localmente SOLO cuando hay texto en la barra
     useEffect(() => {
         const term = searchTerm.trim().toLowerCase()
+        // Si no hay texto, mostrar la lista completa (solo chats con mensajes)
         if (term === "") {
-            setFilteredContacts([])
+            setFilteredContacts(contacts)
             return
         }
         let filtered = contacts.filter((c) => {
-        const name = (c.name ?? "").toLowerCase()
-        const phone = (c.phone_number ?? "")
-        return name.includes(term) || phone.includes(term.replace(/\s+/g, ""))
+            const name = (c.name ?? "").toLowerCase()
+            const phone = (c.phone_number ?? "")
+            return name.includes(term) || phone.includes(term.replace(/\s+/g, ""))
         })
-
-        // Aplicando "filter"
         if (filter === "favoritos") {
             filtered = filtered.filter((c) => c.is_favorite)
         } else if (filter === "grupos") {
             filtered = filtered.filter((c) => c.is_group)
         }
-
         setFilteredContacts(filtered)
     }, [contacts, searchTerm, filter])
 

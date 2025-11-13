@@ -15,19 +15,16 @@ function getToken() {
 ============================================================ */
 export async function getUserChats(userId) {
     const token = getToken()
-
     const res = await fetch(`${ENVIRONMENT.URL_API}/api/chats/user/${userId}`, {
         method: HTTP_METHODS.GET,
         headers: {
             [HEADERS.AUTHORIZATION]: `Bearer ${token}`,
         },
     })
-
     if (!res.ok) {
         const error = await res.json()
         throw new Error(error?.message || "Error obteniendo chats del usuario")
     }
-
     return res.json()
 }
 
@@ -37,7 +34,6 @@ export async function getUserChats(userId) {
 ============================================================ */
 export async function createChat({ contactId }) {
     const token = getToken()
-
     const res = await fetch(`${ENVIRONMENT.URL_API}/api/chats`, {
         method: HTTP_METHODS.POST,
         headers: {
@@ -46,11 +42,9 @@ export async function createChat({ contactId }) {
         },
         body: JSON.stringify({ contactId }),
     })
-
     if (!res.ok) {
         const error = await res.json()
         throw new Error(error?.message || "Error creando chat")
     }
-
     return res.json()
 }
