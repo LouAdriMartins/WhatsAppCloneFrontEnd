@@ -1,0 +1,37 @@
+@import '../NormalizeCSS/normalize.css';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --ui-overlay: rgba(0,0,0,0.45);
+  --ui-bg: #fff;
+  --ui-border: #d1d7db;
+  --ui-radius: 12px;
+}
+
+/* fondo oscurecido */
+.ui-modal__overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--ui-overlay);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* caja centrada */
+.ui-modal__content {
+  background: var(--ui-bg);
+  border: 1px solid var(--ui-border);
+  border-radius: var(--ui-radius);
+  width: 100%;
+  max-width: 420px;
+  padding: 26px 22px;
+  font-family: "Inter", sans-serif;
+  animation: uiModalIn .25s ease-out;
+}
+
+@keyframes uiModalIn {
+  from { opacity: 0; transform: translateY(12px) scale(.97); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}

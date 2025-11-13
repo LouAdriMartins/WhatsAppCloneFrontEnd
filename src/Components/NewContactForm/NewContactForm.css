@@ -1,0 +1,99 @@
+@import '../NormalizeCSS/normalize.css';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+/* VARIABLES LOCALES */
+:root {
+    --nc-text: #111b21;
+    --nc-muted: #667781;
+    --nc-border: #d1d7db;
+    --nc-input-bg: #f7f8fa;
+    --nc-focus: #00a884;
+    --nc-btn: #00a884;
+    --nc-success: #008069;
+    --nc-radius: 10px;
+    --hover-bg: #fff;
+    --new-contact-bg: rgba(0,128,105,.12);
+}
+
+.newcontact__container {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    font-family: "Inter", sans-serif;
+    color: var(--nc-text);
+}
+
+/* header */
+.newcontact__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.newcontact__header h2 {
+    font-weight: 600;
+    font-size: 20px;
+    margin: 0;
+}
+.newcontact__close {
+    background: none;
+    border: none;
+    font-size: 22px;
+    color: var(--nc-muted);
+    cursor: pointer;
+    line-height: 1;
+    transition: color .2s ease, transform .15s ease;
+}
+.newcontact__close:hover { color: var(--nc-text); transform: scale(1.06); }
+
+/* form */
+.newcontact__form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.newcontact__form label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--nc-muted);
+}
+.newcontact__form input {
+    padding: 12px 14px;
+    background: var(--nc-input-bg);
+    border: 1.4px solid var(--nc-border);
+    border-radius: var(--nc-radius);
+    font-size: 15px;
+    outline: none;
+    transition: border-color .2s ease, background .2s ease;
+}
+.newcontact__form input:focus {
+    border-color: var(--nc-focus);
+    background: var(--hover-bg);
+}
+.newcontact__form button {
+    margin-top: 8px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: var(--nc-radius);
+    background: var(--nc-btn);
+    color: var(--hover-bg);
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    transition: opacity .2s ease, transform .15s ease;
+}
+.newcontact__form button:hover:not(:disabled) {
+    opacity: .9; transform: translateY(-1px);
+}
+.newcontact__form button:disabled { opacity: .6; cursor: not-allowed; }
+
+.newcontact__msg {
+    text-align: center;
+    font-size: 14px;
+    padding: 8px;
+    border-radius: var(--nc-radius);
+    background: var(--new-contact-bg);
+    color: var(--nc-success);
+    animation: newcontactMsg .25s ease;
+}
+
+@keyframes newcontactMsg { from {opacity:0} to {opacity:1} }

@@ -1,7 +1,7 @@
-// src/Components/AddContactModal/AddContactModal.jsx
 import React, { useState, useContext } from "react"
 import { createContact } from "../../services/contactService"
 import { HomeContactContext } from "../../Context/HomeContactContext"
+import "./AddContactModal.css"
 
 export default function AddContactModal({ onClose }) {
     const { reload } = useContext(HomeContactContext)
@@ -31,8 +31,8 @@ export default function AddContactModal({ onClose }) {
     }
 
     return (
-        <div className="modal-overlay">
-            <div className="modal-content">
+        <div className="add-contact__modal-overlay">
+            <div className="add-contact__modal-content">
                 <h2>Agregar nuevo contacto</h2>
 
                 <form onSubmit={handleSubmit}>
@@ -53,7 +53,7 @@ export default function AddContactModal({ onClose }) {
                     required
                 />
 
-                <div className="modal-buttons">
+                <div className="add-contact__modal-buttons">
                     <button type="submit" disabled={loading}>
                     {loading ? "Guardando..." : "Agregar"}
                     </button>
@@ -63,7 +63,7 @@ export default function AddContactModal({ onClose }) {
                     </button>
                 </div>
 
-                {message && <p className="modal-message">{message}</p>}
+                {message && <p className="add-contact__modal-message">{message}</p>}
                 </form>
             </div>
         </div>

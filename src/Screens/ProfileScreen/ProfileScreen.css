@@ -1,13 +1,49 @@
-.profile-container {
-    background: #f6f7f8;
-    min-height: 100vh;
-    padding-top: 20px;
-    text-align: center;
+@import '../../Components/NormalizeCSS/normalize.css';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+/* =======================================================
+    VARIABLES
+   ======================================================= */
+
+:root {
+    --profile-bg: #f2f3f5;
+    --profile-text: #111b21;
+    --profile-muted: #8696a0;
 }
 
+/* ========== PROFILE SCREEN ========== */
+
+.profile-screen {
+    background: #F5F5F5;
+    min-height: 100vh;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* BACK BUTTON */
 .profile-back-btn {
-    position: absolute;
-    top: 16px;
-    left: 16px;
-    color: #444;
+    align-self: flex-start;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #111;
+    text-decoration: none;
+    border-radius: 15%;
+    transition: background 0.2s ease;
+    padding: 10px;
+}
+
+.profile-back-btn:hover {
+    background: rgba(0,0,0,0.05);
+}
+
+/* MAIN CONTENT */
+.profile-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 }

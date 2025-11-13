@@ -26,7 +26,10 @@ export function AuthContextProvider({ children }) {
     }
 
     function updateUser(updatedUser) {
-        setUser(updatedUser)
+        setUser(prev => ({
+            ...prev,
+            ...updatedUser
+        }))
     }
 
     function logout() {

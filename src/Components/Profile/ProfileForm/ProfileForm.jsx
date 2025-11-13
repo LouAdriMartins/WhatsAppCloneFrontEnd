@@ -1,23 +1,45 @@
-import { useContext, useState } from "react"
+import { useContext, useState, useEffect } from "react"
 import { AuthContext } from "../../../Context/AuthContext"
-import { updateUserName } from "../../../services/userService"
-import { FiEdit2, FiX, FiCheck } from "react-icons/fi"
+import { updateMyProfile } from "../../../services/userService"
+import { FiEdit2, FiCheck, FiX } from "react-icons/fi"
 import "./ProfileForm.css"
 
 export default function ProfileForm() {
     const { user, updateUser } = useContext(AuthContext)
-    const [name, setName] = useState(user?.name ?? "")
-    const [editing, setEditing] = useState(false)
-    const [loading, setLoading] = useState(false)
 
-    async function save() {
+    const [editingField, setEditingField] = useState(null)
+    const [loading, setLoading] = useState(false)
+    const [formValues, setFormValues] = useState({
+        name: user?.name ?? "",
+        info: user?.info ?? "",
+        phone_number: user?.phone_number ?? "",
+    })
+
+    useEffect(() => {
+        setFormValues({
+            name: user?.name ?? "",
+            info: user?.info ?? "",
+            phone_number: user?.phone_number ?? "",
+        })
+    }, [user])
+
+    function handleChange(field, value) {
+        setFormValues(prev => ({ ...prev, [field]: value }))
+    }
+
+    async function save(field) {
         try {
             setLoading(true)
-            const updatedUser = await updateUserName(name)
+
+            const updatedUser = await updateMyProfile({
+                [field]: formValues[field],
+            })
+
             updateUser(updatedUser)
-            setEditing(false)
-        } catch {
-            alert("Error")
+            setEditingField(null)
+
+        } catch (err) {
+            alert("Error guardando cambios")
         } finally {
             setLoading(false)
         }
@@ -25,37 +47,52 @@ export default function ProfileForm() {
 
     return (
         <div className="profile-card">
-            {/* NAME */}
-            <div className="profile-item">
-                <span className="label">Nombre</span>
+            {["name", "info", "phone_number"].map(field => (
+                <div className="profile-item" key={field}>
+                    <span className="label">
+                        {field === "name" && "Nombre"}
+                        {field === "info" && "Info"}
+                        {field === "phone_number" && "Teléfono"}
+                    </span>
 
-                {!editing ? (
-                    <div className="row">
-                        <p className="value">{user?.name}</p>
-                        <button className="icon-btn" onClick={() => setEditing(true)}>
-                            <FiEdit2 />
-                        </button>
-                    </div>
-                ) : (
-                    <div className="edit-row">
-                        <input
-                            className="edit-input"
-                            value={name}
-                            onChange={e => setName(e.target.value)}
-                        />
+                    {editingField !== field ? (
+                        <div className="row">
+                            <p className="value">
+                                {formValues[field] || (field === "info" ? "Sin info" : "No definido")}
+                            </p>
 
-                        <button className="icon-btn confirm" onClick={save} disabled={loading}>
-                            <FiCheck />
-                        </button>
+                            <button className="icon-btn" onClick={() => setEditingField(field)}>
+                                <FiEdit2 />
+                            </button>
+                        </div>
+                    ) : (
+                        <div className="edit-row">
+                            <input
+                                className="edit-input"
+                                value={formValues[field]}
+                                onChange={e => handleChange(field, e.target.value)}
+                            />
 
-                        <button className="icon-btn cancel" onClick={() => setEditing(false)}>
-                            <FiX />
-                        </button>
-                    </div>
-                )}
-            </div>
+                            <button
+                                className="icon-btn confirm"
+                                onClick={() => save(field)}
+                                disabled={loading}
+                            >
+                                <FiCheck />
+                            </button>
 
-            {/* EMAIL */}
+                            <button
+                                className="icon-btn cancel"
+                                onClick={() => setEditingField(null)}
+                                disabled={loading}
+                            >
+                                <FiX />
+                            </button>
+                        </div>
+                    )}
+                </div>
+            ))}
+
             <div className="profile-item">
                 <span className="label">Email</span>
                 <p className="value">{user?.email}</p>

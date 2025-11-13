@@ -11,7 +11,7 @@ export default function NewChatHeader() {
         <div className="newchat-header">
             <div 
                 className="newchat-header__back"
-                onClick={() => navigate(-1)}
+                onClick={() => navigate("/home")}
             >
                 <IoArrowBack className="newchat-header__back-icon" />
                 <h2>Nuevo chat</h2>

@@ -1,15 +1,20 @@
-import React, { useState, useContext } from "react"
+import React, { useState, useContext, useEffect, useRef } from "react"
 import { createContact } from "../../services/contactService"
 import { HomeContactContext } from "../../Context/HomeContactContext"
+import { IoClose } from "react-icons/io5"
+import "./NewContactForm.css"
 
-export default function NewContactForm() {
+export default function NewContactForm({ onClose }) {
     const { reload } = useContext(HomeContactContext)
 
-    const [name, setName] = useState("")
+    const [name, setName]   = useState("")
     const [email, setEmail] = useState("")
     const [phone, setPhone] = useState("")
     const [loading, setLoading] = useState(false)
     const [message, setMessage] = useState("")
+
+    const inputRef = useRef(null)
+    useEffect(() => { inputRef.current?.focus(); }, [])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -17,57 +22,66 @@ export default function NewContactForm() {
         setMessage("")
 
         try {
-            await createContact({
-                name,
-                contact_email: email,
-                phone_number: phone
-        })
-
-        await reload()
+        await createContact({ name, contact_email: email, phone_number: phone })
+        await reload();
         setMessage("Contacto agregado correctamente")
 
         // limpiar
-        setName("")
-        setEmail("")
-        setPhone("")
+        setName(""); setEmail(""); setPhone("")
 
-        } 
-        catch (err) {
-            setMessage(err.message)
-        } 
-        finally {
-            setLoading(false)
+        // cerrar luego de 1.2s
+        if (onClose) setTimeout(onClose, 1200)
+        } catch (err) {
+        setMessage(`${err.message}`)
+        } finally {
+        setLoading(false)
         }
-    }
+    };
 
     return (
-        <form onSubmit={handleSubmit} className="new-contact-form">
-            <label>Nombre (alias):</label>
-            <input
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-            />
+        <div className="newcontact__container">
+            <div className="newcontact__header">
+                <h2>Nuevo contacto</h2>
+                <button
+                type="button"
+                className="newcontact__close"
+                onClick={onClose}
+                aria-label="Cerrar"
+                title="Cerrar"
+                >
+                <IoClose />
+                </button>
+            </div>
 
-            <label>Email del contacto:</label>
-            <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-            />
+            <form className="newcontact__form" onSubmit={handleSubmit}>
+                <label>Nombre (alias):</label>
+                <input
+                    ref={inputRef}
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                />
 
-            <label>Teléfono (opcional):</label>
-            <input
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-            />
+                <label>Email del contacto:</label>
+                <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                />
 
-            <button type="submit" disabled={loading}>
-                {loading ? "Guardando..." : "Agregar"}
-            </button>
+                <label>Teléfono (opcional):</label>
+                <input
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                />
 
-            {message && <p>{message}</p>}
-        </form>
+                <button type="submit" disabled={loading}>
+                    {loading ? "Guardando..." : "Agregar"}
+                </button>
+
+                {message && <p className="newcontact__msg">{message}</p>}
+            </form>
+        </div>
     )
 }

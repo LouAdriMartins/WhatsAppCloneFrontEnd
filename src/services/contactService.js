@@ -7,7 +7,7 @@ import {
 import LOCALSTORAGE_KEYS from "../constants/localstorage.js"
 
 /* ------------------------------------------------------
-AUX — Obtiene token
+AUX — Obtiene token de localStorage
 ------------------------------------------------------ */
 function getToken() {
     const token = localStorage.getItem(LOCALSTORAGE_KEYS.AUTH_TOKEN)
@@ -18,65 +18,64 @@ function getToken() {
 }
 
 /* ------------------------------------------------------
-GET — Lista de contactos (con búsqueda opcional)
+HELPER — Realiza fetch con token
 ------------------------------------------------------ */
-export async function getContacts(searchTerm = "") {
+async function apiRequest(url, options = {}) {
     const token = getToken()
-    const url = `${ENVIRONMENT.URL_API}/api/contacts?search=${encodeURIComponent(searchTerm)}`
-    console.log("Fetching contacts from:", url)
+
     const response = await fetch(url, {
-        method: HTTP_METHODS.GET,
+        ...options,
         headers: {
+            ...(options.headers || {}),
             [HEADERS.CONTENT_TYPE]: CONTENT_TYPE_VALUES.JSON,
             [HEADERS.AUTHORIZATION]: `Bearer ${token}`
         }
     })
-    const response_data = await response.json()
-    if (!response.ok) {
-        throw new Error(response_data.message || "Error al obtener contactos")
+
+    let json = {}
+    try {
+        json = await response.json()
+    } catch (e) {
+        console.error(`Error parseando JSON de ${url}`, e)
     }
-    return response_data.data
+
+    if (!response.ok) {
+        throw new Error(json?.message || `Error en request: ${url}`)
+    }
+
+    return json?.data ?? json
+}
+
+/* ------------------------------------------------------
+GET — Lista de contactos (con búsqueda opcional)
+------------------------------------------------------ */
+export async function getContacts(searchTerm = "") {
+    const url = `${ENVIRONMENT.URL_API}/api/contacts?search=${encodeURIComponent(searchTerm)}`
+    return await apiRequest(url, { method: HTTP_METHODS.GET })
 }
 
 /* ------------------------------------------------------
 GET — Obtener contacto por ID
 ------------------------------------------------------ */
 export async function getContactById(contact_id) {
-    const token = getToken()
     const url = `${ENVIRONMENT.URL_API}/api/contacts/contact/${contact_id}`
-    const response = await fetch(url, {
-        method: HTTP_METHODS.GET,
-        headers: {
-            [HEADERS.CONTENT_TYPE]: CONTENT_TYPE_VALUES.JSON,
-            [HEADERS.AUTHORIZATION]: `Bearer ${token}`
-        }
-    })
-    const response_data = await response.json()
-    if (!response.ok) {
-        throw new Error(response_data.message || "Error al obtener contacto")
-    }
-    return response_data.data
+    return await apiRequest(url, { method: HTTP_METHODS.GET })
+}
+
+export async function getContactByUserId(contact_user_id) {
+    const url = `${ENVIRONMENT.URL_API}/api/contacts/by-user/${contact_user_id}`
+    return await apiRequest(url, { method: HTTP_METHODS.GET })
 }
 
 /* ------------------------------------------------------
 POST — Crear contacto
 ------------------------------------------------------ */
 export async function createContact(contactData) {
-    const token = getToken()
     const url = `${ENVIRONMENT.URL_API}/api/contacts`
-    const response = await fetch(url, {
+    return await apiRequest(url, {
         method: HTTP_METHODS.POST,
-        headers: {
-            [HEADERS.CONTENT_TYPE]: CONTENT_TYPE_VALUES.JSON,
-            [HEADERS.AUTHORIZATION]: `Bearer ${token}`
-        },
         body: JSON.stringify(contactData)
     })
-    const data = await response.json()
-    if (!response.ok) {
-        throw new Error(data.message)
-    }
-    return data.data
 }
 
 /* ------------------------------------------------------

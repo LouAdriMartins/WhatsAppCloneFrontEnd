@@ -1,62 +1,82 @@
+@import '../../NormalizeCSS/normalize.css';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+:root {
+    --profile-card-bg: #fff;
+    --profile-text: #111b21;
+    --profile-muted: #8696a0;
+    --profile-border: #e9edef;
+    --profile-primary: #00a884;
+}
+
 .profile-card {
-    width: 85%;
-    max-width: 600px;
     background: #fff;
-    border-radius: 12px;
-    padding: 20px;
-    margin: 0 auto;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border-radius: 16px;
+    width: 90%;
+    max-width: 380px;
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 .profile-item {
-    margin-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
 
 .label {
-    font-size: 15px;
-    color: #075e54;
-    margin-bottom: 4px;
-    display: block;
-    font-weight: 600;
-}
-
-.row,
-.edit-row {
-    display: flex;
-    align-items: center;
-    gap: 14px;
+    font-size: 14px;
+    color: #666;
 }
 
 .value {
-    font-size: 17px;
-    flex: 1;
+    font-size: 16px;
     color: #111;
+    word-break: break-word;
+}
+
+/* ---- BOTÓN EDIT ---- */
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .icon-btn {
     background: none;
     border: none;
     cursor: pointer;
-    color: #777;
-    display: flex;
-    font-size: 20px;
+    padding: 4px;
+    border-radius: 50%;
+    transition: background 0.2s;
 }
 
 .icon-btn:hover {
-    color: #333;
+    background: #F7F5F3;
 }
 
-.confirm {
-    color: #0a7b34;
-}
-
-.cancel {
-    color: #dd3b3b;
+/* ---- EDITANDO ---- */
+.edit-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
 }
 
 .edit-input {
     flex: 1;
-    padding: 6px 10px;
+    padding: 6px 8px;
     border-radius: 6px;
     border: 1px solid #ccc;
+}
+
+/* Confirm & cancel */
+.icon-btn.confirm {
+    color: #009688;
+}
+
+.icon-btn.cancel {
+    color: #d93025;
 }

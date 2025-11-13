@@ -110,20 +110,32 @@
 .message-status {
     display: flex;
     align-items: center;
-    flex-shrink: 0;
+    margin-right: 4px;
 }
 
-.check-icon {
-    color: var(--color_check_unread_icon);
-    width: 16px;
-    height: 16px;
+/* --------------- ESTADOS --------------- */
+
+/* ✔ enviado: un solo check gris */
+.check-icon.sent {
+    color: #8e8e8e;
+    font-size: 16px;
 }
 
-.message-status.true .check-icon {
-    color: var(--color_check_unread_icon);
+/* ✔✔ entregado: dos checks grises */
+.check-icon.delivered {
+    color: #8e8e8e;
+    font-size: 16px;
 }
-.message-status.false .check-icon {
-    color: var(--color_text_time_contact);
+
+/* ✔✔ leído: dos checks azules */
+.check-icon.read {
+    color: #34b7f1;
+    font-size: 16px;
+}
+
+/* Ajuste del segundo check */
+.check-icon.second {
+    margin-left: -6px;
 }
 
 .message-text {

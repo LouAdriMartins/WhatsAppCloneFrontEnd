@@ -1,0 +1,163 @@
+@import "../../Components/NormalizeCSS/normalize.css";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+/* =======================================
+    VARIABLES LOCALES
+======================================= */
+:root {
+    --addcontact-bg-overlay: rgba(0, 0, 0, 0.45);
+    --addcontact-bg: #ffffff;
+    --addcontact-border: #d1d7db;
+    --addcontact-input-bg: #f7f8fa;
+    --addcontact-input-focus: #00a884;
+    --addcontact-btn-confirm: #00a884;
+    --addcontact-btn-cancel: #e5e5e5;
+    --addcontact-text: #111b21;
+    --addcontact-muted: #667781;
+    --addcontact-success: #008069;
+    --addcontact-error: #d32f2f;
+    --shadow-modal: 0 4px 16px rgba(0, 0, 0, 0.15);
+    --addcontact-radius: 10px;
+}
+
+/* =======================================
+    OVERLAY
+======================================= */
+
+.add-contact__modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--addcontact-bg-overlay);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 999;
+}
+
+.add-contact__modal-content {
+    background: var(--addcontact-bg);
+    width: 100%;
+    max-width: 420px;
+
+    padding: 28px 26px;
+    border-radius: var(--addcontact-radius);
+
+    box-shadow: var(--shadow-modal);
+
+    font-family: "Inter", sans-serif;
+    color: var(--addcontact-text);
+    animation: modalShow 0.25s ease-out;
+}
+
+@keyframes modalShow {
+    from { opacity: 0; transform: translateY(10px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+
+.add-contact__modal-content h2 {
+    font-weight: 600;
+    font-size: 20px;
+    margin-bottom: 16px;
+    color: var(--addcontact-text);
+}
+
+/* =======================================
+    FORM
+======================================= */
+
+.add-contact__modal-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.add-contact__modal-content label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--addcontact-muted);
+}
+
+.add-contact__modal-content input {
+    width: 100%;
+    padding: 12px 14px;
+    background: var(--addcontact-input-bg);
+    border: 1.4px solid var(--addcontact-border);
+    border-radius: var(--addcontact-radius);
+    font-size: 15px;
+    color: var(--addcontact-text);
+    outline: none;
+    transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.add-contact__modal-content input:focus {
+    border-color: var(--addcontact-input-focus);
+    background: var(--addcontact-bg);
+}
+
+/* =======================================
+    BUTTONS
+======================================= */
+
+.add-contact__modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+.add-contact__modal-buttons button {
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: var(--addcontact-radius);
+    cursor: pointer;
+    transition: opacity 0.2s ease, transform 0.15s ease;
+}
+
+.add-contact__modal-buttons button[type="submit"] {
+    background: var(--addcontact-btn-confirm);
+    color: var(--addcontact-bg);
+    border: none;
+}
+
+.add-contact__modal-buttons button[type="submit"]:hover:not(:disabled) {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.add-contact__modal-buttons button[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.add-contact__modal-buttons button[type="button"] {
+    background: var(--addcontact-btn-cancel);
+    border: none;
+    color: var(--addcontact-text);
+}
+
+.add-contact__modal-buttons button[type="button"]:hover {
+    opacity: 0.8;
+}
+
+.add-contact__modal-message {
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    padding: 8px;
+    border-radius: var(--addcontact-radius);
+    animation: fadeMsg 0.3s ease;
+}
+
+.add-contact__modal-message {
+    background: var(--addcontact-success + "20");
+    color: var(--addcontact-success);
+}
+
+@keyframes fadeMsg {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}

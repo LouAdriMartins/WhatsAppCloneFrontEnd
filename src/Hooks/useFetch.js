@@ -10,20 +10,30 @@ const useFetch = () => {
             setLoading(true)
             setError(null)
             setResponse(null)
+
             const res = await requestCallback()
             let data
+
+            // Si el servicio devolvió un Response real
             if (res instanceof Response) {
                 data = await res.json()
-            } else {
+
+                // validar errores solo si ES fetch nativo
+                if (!res.ok) {
+                    throw new Error(data?.message || "Error en la solicitud")
+                }
+            } 
+            // Si devolvió un JSON directo (como apiRequest)
+            else {
                 data = res
             }
+
             if (!data) {
                 throw new Error("El servidor no devolvió datos.")
             }
-            if (!res.ok && data.message) {
-                throw new Error(data.message)
-            }
+
             setResponse(data)
+
         } catch (err) {
             console.error("Error en fetch:", err)
             setError(err)

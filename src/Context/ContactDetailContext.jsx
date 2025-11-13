@@ -3,9 +3,9 @@
     Archivo: src/Context/ContactDetailContext.jsx
 
     Este archivo contiene el contexto encargado de gestionar el detalle de un contacto.
-    Ahora utiliza la API real a través del servicio getContactById, con manejo de carga y errores.
+    Utiliza la API real a través del servicio getContactById, con manejo de carga y errores.
 */
-//------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------
 
 import React, { createContext, useState } from "react"
 import { getContactById } from "../services/contactService.js"

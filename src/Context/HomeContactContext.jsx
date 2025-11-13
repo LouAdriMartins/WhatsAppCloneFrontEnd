@@ -1,4 +1,5 @@
-import React, { createContext, useState, useEffect, useCallback } from "react"
+import React, { createContext, useState, useEffect, useCallback, useContext } from "react"
+import { MessageContext } from "./MessageContext"
 import { getContacts } from "../services/contactService"
 
 export const HomeContactContext = createContext({
@@ -20,21 +21,23 @@ const HomeContactContextProvider = ({ children }) => {
     const [searchTerm, setSearchTerm] = useState("")
     const [filter, setFilter] = useState("todos")
 
+    const { messages } = useContext(MessageContext)
+
     // Cargar contactos desde backend
     const loadContacts = useCallback(async () => {
         setIsLoadingContacts(true)
         try {
             const data = await getContacts()
             if (!Array.isArray(data)) {
-                console.warn("Backend no devolvió una lista válida:", data)
                 setContacts([])
                 setFilteredContacts([])
                 return
             }
             setContacts(data)
-            setFilteredContacts([]) 
+            // Default → full list
+            setFilteredContacts(data)
         } catch (err) {
-            console.error("Error al cargar contactos:", err)
+            console.error("Error al cargar contactos/chats:", err)
             setContacts([])
             setFilteredContacts([])
         } finally {
@@ -45,6 +48,10 @@ const HomeContactContextProvider = ({ children }) => {
     useEffect(() => {
         loadContacts()
     }, [loadContacts])
+
+    useEffect(() => {
+        loadContacts()
+    }, [messages])
 
     // Filtrar localmente SOLO cuando hay texto en la barra
     useEffect(() => {

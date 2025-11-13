@@ -1,73 +1,186 @@
-//--------------------------------------------CREACIÓN DE CONTEXTO-MENSAJES----------------------------------------------------------
-/* Archivo: src/Context/MessageContext.jsx
-    Este archivo contiene la función de estado que renderiza los mensajes en la pantalla de chat. En este caso, se simula una llamada a un servicio getMessagesByContactId que retorna una lista de mensajes para un contacto específico. Además, se usa la función setTimeout para simular un retraso en la carga de los mensajes, para lo cual se creo un spinner de carga de WhatsApp.
-*/
-//------------------------------------------------------------------------------------------------------------------------------------
-import React, { createContext } from "react"
-import { useState } from "react"
-import { getMessagesByContactId } from "../services/messageService"
+import { createContext, useState, useEffect, useContext } from "react"
+import { useParams } from "react-router-dom"
+import { getMessages, sendMessage, deleteMessageAPI } from "../services/messageService"
+import { io } from "socket.io-client"
+import { AuthContext } from "./AuthContext"
+import ENVIRONMENT from "../config/environment"
+import LOCALSTORAGE_KEYS from "../constants/localstorage"
+import { getUserChats } from "../services/chatService"
 
-export const MessageContext = createContext(
-    {
-        messages: [],
-        handleDeleteMessages: (id_message) => {},
-        AddNewMessage: (text) => {},
-        loadMessages: (contact_id) => {},
-        isLoadingMessages: true
-    }
-);
+export const MessageContext = createContext()
+let socket = null
 
-const MessageContextProvider = ({ children }) => {
+export function MessageProvider({ children }) {
+
+    const { user } = useContext(AuthContext)
+    const { contact_user_id } = useParams()
+
+    const token = localStorage.getItem(LOCALSTORAGE_KEYS.AUTH_TOKEN)
+
     const [messages, setMessages] = useState([])
-    const [idCounter, setIdCounter] = useState(1);
-    const [isLoadingMessages, setIsLoadingMessages] = useState(true)
+    const [isLoadingMessages, setIsLoadingMessages] = useState(false)
+    const [currentChatId, setCurrentChatId] = useState(null)
 
-    const loadMessages = (contact_id) => {
-        setIsLoadingMessages(true)
-        setTimeout(
-            () => {
-                const messagesList = getMessagesByContactId(contact_id)
-                setMessages(messagesList)
-                setIsLoadingMessages(false)
-            },
-            1000
-        )
+    /* ============================================================
+        Inicializar socket
+    ============================================================ */
+    useEffect(() => {
+        if (!user) return
+
+        socket = io(ENVIRONMENT.URL_API, {
+            query: { userId: user._id },
+            transports: ["websocket"]
+        })
+
+        return () => socket?.disconnect()
+    }, [user])
+
+    /* ============================================================
+        Obtener o crear el chat REAL
+    ============================================================ */
+    useEffect(() => {
+        async function resolveChat() {
+            if (!user || !contact_user_id) return
+
+            try {
+                const allChats = await getUserChats(user._id)
+
+                // FIX: en backend es "users", no "members"
+                let existingChat = allChats.find(chat =>
+                    chat.users.some(u => u._id.toString() === contact_user_id.toString())
+                )
+
+                if (!existingChat) return // previene errores
+
+                setCurrentChatId(existingChat._id)
+
+            } catch (error) {
+                console.error("Error obteniendo chat:", error)
+            }
+        }
+
+        resolveChat()
+    }, [contact_user_id, user])
+
+
+    /* ============================================================
+        Unirse a la room del chat (WS estilo WhatsApp)
+    ============================================================ */
+    useEffect(() => {
+        if (!socket || !currentChatId) return
+        socket.emit("join-room", currentChatId)
+    }, [socket, currentChatId])
+
+    /* ============================================================
+        Cargar mensajes cuando cambia el chat real
+    ============================================================ */
+    useEffect(() => {
+        if (currentChatId) loadMessages(currentChatId)
+    }, [currentChatId])
+
+    /* ============================================================
+        Cargar mensajes del backend
+    ============================================================ */
+    async function loadMessages(chatId) {
+        if (!chatId) return
+
+        try {
+            setIsLoadingMessages(true)
+
+            const backendMessages = await getMessages(chatId)
+
+            const formatted = backendMessages.map(msg => ({
+                ...msg,
+                sender: msg.sender._id === user._id ? "YO" : "ELLOS"
+            }))
+
+            setMessages(formatted)
+
+        } catch (error) {
+            console.error("Error cargando mensajes:", error)
+            setMessages([])
+        } finally {
+            setIsLoadingMessages(false)
+        }
     }
 
-    const handleDeleteMessages = (id_message) => {
-        const NewMessageList = [];
-        for (const message of messages) {
-        if (message.id !== id_message) {
-            NewMessageList.push(message)
-        }
-        }
-        setMessages(NewMessageList);
-    };
 
-    const AddNewMessage = (text) => {
-        const newMessage = {
-        emisor: "YO",
-        hora: new Date().toLocaleTimeString([], {
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: true,
-        }),
-        id: idCounter,
-        text: text,
+    /* ============================================================
+        Socket listeners
+    ============================================================ */
+    useEffect(() => {
+        if (!socket) return
+
+        const onIncomingMessage = (msg) => {
+            setMessages(prev => {
+
+                const exists = prev.some(m => m._id === msg._id)
+                if (exists) return prev
+
+                return [
+                    ...prev,
+                    {
+                        ...msg,
+                        sender: msg.sender.toString() === user._id ? "YO" : "ELLOS"
+                    }
+                ]
+            })
         }
-        const cloneMessages = [...messages]
-        cloneMessages.push(newMessage)
-        setMessages(cloneMessages)
-        setIdCounter(idCounter + 1)
-    };
+
+        const onDeletedMessage = (deletedId) => {
+            setMessages(prev =>
+                prev.filter(m => m._id !== deletedId)
+            )
+        }
+
+        socket.on("message:new", onIncomingMessage)
+        socket.on("message:deleted", onDeletedMessage)
+
+        return () => {
+            socket.off("message:new", onIncomingMessage)
+            socket.off("message:deleted", onDeletedMessage)
+        }
+    }, [socket, user])
+
+
+    /* ============================================================
+        Enviar mensaje
+    ============================================================ */
+    async function AddNewMessage(content) {
+        try {
+            await sendMessage({
+                peerUserId: contact_user_id,
+                content
+            })
+        } catch (error) {
+            console.error("Error enviando mensaje:", error)
+        }
+    }
+
+    /* ============================================================
+        Eliminar mensaje
+    ============================================================ */
+    async function deleteMessage(messageId) {
+        try {
+            await deleteMessageAPI(messageId)
+
+            setMessages(prev =>
+                prev.filter(m => m._id !== messageId)
+            )
+
+        } catch (error) {
+            console.error("Error eliminando mensaje:", error)
+        }
+    }
+
+
     return (
         <MessageContext.Provider
             value={{
-                messages: messages,
-                handleDeleteMessages: handleDeleteMessages,
-                AddNewMessage: AddNewMessage,
-                loadMessages: loadMessages,
-                isLoadingMessages: isLoadingMessages
+                messages,
+                isLoadingMessages,
+                AddNewMessage,
+                deleteMessage,
             }}
         >
             {children}
@@ -75,4 +188,4 @@ const MessageContextProvider = ({ children }) => {
     )
 }
 
-export default MessageContextProvider
+export default MessageProvider

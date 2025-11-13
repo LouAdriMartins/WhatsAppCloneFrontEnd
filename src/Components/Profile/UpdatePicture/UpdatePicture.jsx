@@ -6,7 +6,7 @@ import default_avatar from "../../../../readme-images/default-image.png"
 import "./UpdatePicture.css"
 
 export default function UpdatePicture() {
-    const { user, loadUser } = useContext(AuthContext)  
+    const { user, loadUser } = useContext(AuthContext)
     const [menuOpen, setMenuOpen] = useState(false)
     const [loading, setLoading] = useState(false)
 
@@ -19,7 +19,7 @@ export default function UpdatePicture() {
             if (!file) return
 
             await uploadProfileImage(file)
-            await loadUser()                        
+            await loadUser()
         } catch (e) {
             alert("Error subiendo foto")
         } finally {
@@ -32,7 +32,7 @@ export default function UpdatePicture() {
         try {
             setLoading(true)
             await deleteProfileImage()
-            await loadUser()                       
+            await loadUser()
         } catch (e) {
             alert("Error eliminando foto")
         } finally {
@@ -50,13 +50,14 @@ export default function UpdatePicture() {
                     className="profile-img"
                 />
 
+                {/* hover cuando NO está cargando */}
                 {!loading && (
-                    <div className="picture-hover">
-                        <LuUpload size={28} />
-                        <span>Cambiar foto</span>
+                    <div className="picture-edit">
+                        <LuUpload size={22} />
                     </div>
                 )}
 
+                {/* overlay LOADING cuando sí está cargando */}
                 {loading && (
                     <div className="picture-loading">
                         <div className="spinner" />

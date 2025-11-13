@@ -6,13 +6,17 @@ import "./ProfileScreen.css"
 
 export default function ProfileScreen() {
     return (
-        <div className="profile-container">
+        <div className="profile-screen">
+
             <Link to="/home" className="profile-back-btn">
                 <BsArrowLeft size={22} />
+                <span>Perfil</span>
             </Link>
 
-            <UpdatePicture />
-            <ProfileForm />
+            <div className="profile-content">
+                <UpdatePicture />
+                <ProfileForm />
+            </div>
         </div>
     )
 }
