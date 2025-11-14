@@ -29,6 +29,28 @@ export async function register(name, email, password) {
     return response_data
 }
 
+export async function verifyEmailWithToken(token) {
+    try {
+        const response = await fetch(
+            `${ENVIRONMENT.URL_API}/api/auth/verify-email/${token}`
+        )
+        const data = await response.json()
+        if (!response.ok) {
+            throw new Error(data?.message || "Error verificando email")
+        }
+        return {
+            ok: true,
+            message: "Tu email fue verificado correctamente"
+        }
+    } catch (err) {
+        console.error("Error verificando email:", err)
+        return {
+            ok: false,
+            message: "El enlace de verificación es inválido o ya expiró"
+        }
+    }
+}
+
 export async function login(email, password) {
     const response = await fetch(
         `${ENVIRONMENT.URL_API}/api/auth/login`,
