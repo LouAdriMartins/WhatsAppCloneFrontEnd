@@ -121,22 +121,6 @@
   text-align: center;
 }
 
-.verified-alert {
-    background-color: var(--color-background);
-    color: var(--color-verify-alert);
-    padding: 12px;
-    border-radius: 6px;
-    margin-bottom: 15px;
-    border: 1px solid var(--color-verify-alert-border);
-    text-align: center;
-    font-weight: 500;
-    animation: fadeIn 0.3s ease-in-out;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-5px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
 @keyframes fadeInUp {
   from {opacity: 0; transform: translateY(20px);}
   to {opacity: 1; transform: translateY(0);}
