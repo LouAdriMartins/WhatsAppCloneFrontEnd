@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import useFetch from "../../../Hooks/useFetch.js"
 import useForm from "../../../Hooks/useForm.js"
-import { login } from "../../../services/authService.js"
+import { login, verifyEmailToken } from "../../../services/authService.js"
 import { FaEnvelope, FaLock, FaArrowRight } from "react-icons/fa"
 import "./LoginForm.css"
 
@@ -27,6 +27,17 @@ const LoginForm = () => {
             login(form_state[FORM_FIELDS.EMAIL], form_state[FORM_FIELDS.PASSWORD])
         )
     })
+
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search)
+        const verifyToken = params.get("verifyToken")
+        if (!verifyToken) return
+        async function runVerification() {
+            await verifyEmailToken(verifyToken)
+            window.history.replaceState({}, "", "/")   // limpiar URL
+        }
+        runVerification()
+    }, [])
 
     useEffect(() => {
         if (response?.ok) {
