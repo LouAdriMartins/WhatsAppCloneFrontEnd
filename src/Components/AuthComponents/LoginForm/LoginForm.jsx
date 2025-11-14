@@ -40,10 +40,17 @@ const LoginForm = () => {
     }, [])
 
     useEffect(() => {
-        if (response?.ok) {
-            navigate("/home")
-        }
-    }, [response, navigate])
+    if (response?.ok) {
+        // Guardar token
+        localStorage.setItem(
+            LOCALSTORAGE_KEYS.AUTH_TOKEN,
+            response.data.token
+        )
+        // Redirigir
+        navigate("/home")
+    }
+}, [response, navigate])
+
 
     return (
         <div className="my-login-form__container">
