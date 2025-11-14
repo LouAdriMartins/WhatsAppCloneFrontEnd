@@ -27,7 +27,7 @@ function App() {
           <Route path="/" element={<LoginScreen />} />
           <Route path="/login" element={<LoginScreen />} />
           <Route path="/register" element={<RegisterScreen />} />
-          <Route path="/recover-password" element={<RecoverPasswordScreen />} />
+          <Route path="/reset-password/:token" element={<ResetPasswordScreen />} />
           <Route path="/reset-password" element={<ResetPasswordScreen />} />
 
           {/* Privado */}
