@@ -1,24 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import React from 'react'
 import LoginForm from '../../Components/AuthComponents/LoginForm/LoginForm'
 import { FaLock } from 'react-icons/fa'
 import './LoginScreen.css'
 
 export default function LoginScreen() {
-    // Estado para mostrar el mensaje
-    const [verifiedMessage, setVerifiedMessage] = useState("");
-    const location = useLocation();
-
-    // Detectar ?verified=true
-    useEffect(() => {
-        const params = new URLSearchParams(location.search);
-        if (params.get("verified") === "true") {
-            setVerifiedMessage("Tu email fue verificado correctamente. Ya podés iniciar sesión.");
-            // Limpia el mensaje después de 5 segundos
-            setTimeout(() => setVerifiedMessage(""), 5000);
-        }
-    }, [location]);
-
     return (
         <div className="login-screen">
             <div className="login-screen__box">
@@ -31,14 +16,6 @@ export default function LoginScreen() {
                 </div>
 
                 <div className="login-screen__content">
-
-                    {/* Mensaje de verificación */}
-                    {verifiedMessage && (
-                        <div className="verified-alert">
-                            {verifiedMessage}
-                        </div>
-                    )}
-
                     <LoginForm />
                 </div>
 
