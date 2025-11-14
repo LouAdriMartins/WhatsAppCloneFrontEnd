@@ -21,6 +21,7 @@ const useFetch = () => {
                 // validar errores solo si ES fetch nativo
                 if (!res.ok) {
                     throw new Error(data?.message || "Error en la solicitud")
+                    return null
                 }
             } 
             // Si devolvió un JSON directo (como apiRequest)

@@ -11,6 +11,8 @@
   --color-text-muted: #667781;
   --color-login-screen-title: #3b4a54;
   --color-login-title-icon: #ffffff;
+  --color-verify-alert: #155724;
+  --color-verify-alert-border: #c3e6cb;
 
   --shadow-screen-title: 0 4px 12px rgba(0, 168, 132, 0.3);
 
@@ -26,11 +28,9 @@
   display: flex;
   min-height: 100vh;
   background: var(--color-background);
-
   align-items: center;
   justify-content: center;
   padding: 20px;
-
   overflow: hidden;
 }
 
@@ -38,7 +38,6 @@
   flex: 1;
   max-width: 600px;
   width: 100%;
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -66,10 +65,8 @@
   font-size: 28px;
   font-weight: 600;
   color: var(--color-login-screen-title);
-
   text-align: center;
   margin: 0;
-
   padding-top: 100px;
 }
 
@@ -79,7 +76,6 @@
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-
   width: 80px;
   height: 80px;
   background-color: var(--color-primary);
@@ -94,7 +90,6 @@
   top: 20px;
   left: 50%;
   transform: translateX(-50%);
-
   font-size: 40px;
   color: var(--color-login-title-icon);
   z-index: 1;
@@ -126,15 +121,25 @@
   text-align: center;
 }
 
+.verified-alert {
+    background-color: var(--color-background);
+    color: var(--color-verify-alert);
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    border: 1px solid var(--color-verify-alert-border);
+    text-align: center;
+    font-weight: 500;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from {opacity: 0; transform: translateY(20px);}
+  to {opacity: 1; transform: translateY(0);}
 }
 
 /* =======================================================
