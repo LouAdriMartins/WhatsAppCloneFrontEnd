@@ -1,4 +1,5 @@
-import React, { useLocation, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import LoginForm from '../../Components/AuthComponents/LoginForm/LoginForm'
 import { FaLock } from 'react-icons/fa'
 import './LoginScreen.css'
